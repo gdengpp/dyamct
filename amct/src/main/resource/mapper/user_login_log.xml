@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.amct.dao.userLoginLogDao">
+
+	<!-- 登录成功后加入登录日志表中 -->
+	<insert id="insertUserLoginLog">
+		insert into common_user_login_log(id,login_account,login_time) value(#{id},#{login_account},#{login_time})
+	</insert>
+</mapper>

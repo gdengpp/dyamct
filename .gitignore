@@ -1,6 +1,7 @@
 /amct/target
-/.classpath
+
+/amct/.classpath
 /amct/.springBeans
 /amct/.settings
 /amct/.vscode
-
+/amct/.project
