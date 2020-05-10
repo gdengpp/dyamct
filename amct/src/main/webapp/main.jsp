@@ -78,6 +78,7 @@
 	layui.use([ 'element', 'layer', 'upload', 'form' ], function() {
 		 element = layui.element;
 		var layer = layui.layer;
+		element.init();
 		//检测是否登录===============================================
 		$(function() {
 			if (${user==null}) {
@@ -172,31 +173,32 @@
 	};
 	
 	function appendhtml(data,htm){
-	var headHtml = "";
-		for(var i=0;i<data.length;i++){
+		var headHtml = "";
+		var icon = "";
+		for(var i=0;i<data.length;i++){	
+				if(data[i].menu_cls){
+						icon=data[i].menu_cls;
+					}
 				if(data[i].child.length==0){
-					var icon = "&#xe68c;";
-						if(data[i].menu_cls){
-							icon=data[i].menu_cls;
-						}
 					headHtml += "<li class='layui-nav-item'>"+
 					"<a href='javascript:;' onclick='touMenu(\""+data[i].menu_nav+"\",\""+data[i].menu_url+"\")'>"+
-								"<i class='layui-icon'>"+icon+"</i>"
+								"<i class=\"layui-icon\">"+icon+"</i>"
 								+ data[i].menu_name
 								+ "</a>";
 					headHtml += "</li>";
 				}else{
-					headHtml += "<li class='layui-nav-item'><a href='javascript:void(0);'>"
+					headHtml += "<li class='layui-nav-item'><a href='javascript:void(0);'>"+
+								"<i class=\"layui-icon\">"+icon+"</i>"
 								+ data[i].menu_name
 								+ "</a>";
 					headHtml+="<dl class='layui-nav-child'>";
 					for(var b=0;b<data[i].child.length;b++){
-						var icon = "&#xe68c;";
+						var iconchild = "";
 						if(data[i].child[b].menu_cls){
-							icon=data[i].child[b].menu_cls;
+							iconchild=data[i].child[b].menu_cls;
 						}
 						headHtml+="<dd><a href='javascript:;' onclick='touMenu(\""+data[i].child[b].menu_nav+"\",\""+data[i].child[b].menu_url+"\")'>"+
-									"<i class='layui-icon'>"+icon+"</i>"
+									"<i class=\"layui-icon\">"+iconchild+"</i>"
 									+ data[i].child[b].menu_name+ "</a></dd>";
 					}
 					headHtml += "</dl></li>";
