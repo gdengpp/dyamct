@@ -6,7 +6,7 @@
 		select a.* from common_menu_info a
 		left join common_role_menu b on a.menu_id =
 		b.menu_id where b.role_id =
-		#{role_id} ORDER BY a.menu_order ASC
+		#{role_id} a.menu_status=1 ORDER BY a.menu_order ASC
 	</select>
 
 	<select id="queryByBeginAndEnd" resultType="menu">

@@ -60,7 +60,7 @@
 
 		<div class="layui-body" style="padding: 10px;overflow: hidden;">
 			<!-- 内容主体区域 -->
-			<span class="layui-breadcrumb nav"></span>
+			<div class="layui-breadcrumb nav"></div>
 			<div class="main_right">
 				<iframe frameborder="0" scrolling="yes" style="width: 100%" src="common/main.jsp"
 					id="dbody"> </iframe>
