@@ -31,7 +31,7 @@ public class userController {
 
 		String code = (String) session.getAttribute("code");
 		if (!code.equalsIgnoreCase(captcha)) {// equalsIgnoreCase忽略大小写的比较两个字符
-			info.setMsg("验证码不正确");
+			info.setMsg("验证码错误");
 			info.setSuccess(false);
 			return info;
 		}
@@ -44,7 +44,7 @@ public class userController {
 			return info;
 		}
 		if (!password.equals(u.getLogin_password())) {
-			info.setMsg("密码不正确");
+			info.setMsg("密码不错误");
 			info.setSuccess(false);
 			return info;
 		}

@@ -1,6 +1,7 @@
 package com.amct.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class menu implements Serializable {
 
@@ -29,19 +30,19 @@ public class menu implements Serializable {
 
 	private Integer menu_status;
 
-	private Integer menu_type;
+	private List<menu> child;
 
 	public menu() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Integer getMenu_type() {
-		return menu_type;
+	public List<menu> getChild() {
+		return child;
 	}
 
-	public void setMenu_type(Integer menu_type) {
-		this.menu_type = menu_type;
+	public void setChild(List<menu> child) {
+		this.child = child;
 	}
 
 	@Override
@@ -51,13 +52,13 @@ public class menu implements Serializable {
 				+ ", menu_remark=" + menu_remark + ", menu_url=" + menu_url
 				+ ", menu_cls=" + menu_cls + ", menu_order=" + menu_order
 				+ ", menu_pid=" + menu_pid + ", menu_status=" + menu_status
-				+ ", menu_type=" + menu_type + "]";
+				+ ", child=" + child + "]";
 	}
 
 	public menu(String menu_id, String menu_code, String menu_name,
 			String menu_nav, String menu_remark, String menu_url,
 			String menu_cls, Integer menu_order, String menu_pid,
-			Integer menu_status, Integer menu_type) {
+			Integer menu_status, List<menu> child) {
 		super();
 		this.menu_id = menu_id;
 		this.menu_code = menu_code;
@@ -69,7 +70,7 @@ public class menu implements Serializable {
 		this.menu_order = menu_order;
 		this.menu_pid = menu_pid;
 		this.menu_status = menu_status;
-		this.menu_type = menu_type;
+		this.child = child;
 	}
 
 	public String getMenu_id() {

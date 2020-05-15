@@ -10,5 +10,8 @@ import com.amct.entity.menu;
 public interface menuService {
 
 	//查询所有菜单
-	List<menu> find(String role_id,Integer type);
+	List<menu> find(String role_id);
+	
+	//分页查询
+	List<menu> findAll(String role_id,Integer page,Integer limit);
 }
