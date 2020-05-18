@@ -11,7 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.amct.dao.menuDao;
 import com.amct.dao.userDao;
+import com.amct.dto.tree;
 import com.amct.entity.menu;
+import com.amct.serviceimpl.menuSerivceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class) //表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = { "classpath:spring/spring.xml" })
@@ -21,6 +23,9 @@ public class testC {
 	private menuDao mu;
 	@Autowired
 	private userDao u;
+	
+	@Autowired
+	private menuSerivceImpl ms;
 	
 	@Test
 	public void test1(){
@@ -51,6 +56,14 @@ public class testC {
 		}
 		nu.setChild(arr);
 		return nu;
+	}
+	
+	
+	
+	@Test
+	public void test2(){
+		List<tree> list = ms.findTree("1");
+		System.out.println(list);
 	}
 }
 

@@ -12,3 +12,8 @@ function signleSelect($, id) {
         }
     });
 }
+
+function openSelectTree() {
+    $(".layui-form-select").not($('.downpanel .layui-select-title').parents(".layui-form-select")).removeClass("layui-form-selected");
+    $('.downpanel .layui-select-title').parents(".downpanel").toggleClass("layui-form-selected");
+}
