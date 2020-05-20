@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.amct.dao.roleDao">
+
+	<select id="queryAll" resultType="roles">
+		select * from common_role_info
+		<where>
+			<if test="role_name != null">
+				role_name like #{user_name,jdbcType=VARCHAR}
+			</if>
+		</where>
+		limit #{begin},#{end}
+	</select>
+
+	<select id="count" resultType="Integer">
+		select count(role_id) from common_role_info
+		<where>
+			<if test="role_name != null">
+				role_name like #{user_name,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -113,6 +113,10 @@
 						var name = elem[0].text;
 						for (var m = 0; m < menu.length; m++) {
 							if (name == menu[m].menu_name) {
+								if(menu[m].menu_status==0){
+									layer.msg("菜单已禁用",{icon:5});
+									return false;
+								}
 								$(".nav").html(menu[m].menu_nav);
 								$("iframe").attr("src", menu[m].menu_url);
 								$(".main_right").css("height", frameheight);
@@ -141,7 +145,7 @@
 			}
 			if (data[i].child.length == 0) {
 				headHtml += "<li class='layui-nav-item'>"
-						+ "<a href='javascript:;' onclick='" + htm + "(\""
+						+ "<a href='javascript:;' onclick='" + htm + "(\""+data[i].menu_status + "\",\""
 						+ data[i].menu_nav + "\",\"" + data[i].menu_url
 						+ "\",\"" + data[i].menu_id + "\")'>"
 						+ "<i class=\"layui-icon\">" + icon + "</i>"
@@ -160,7 +164,7 @@
 						iconchild = data[i].child[b].menu_cls;
 					}
 					headHtml += "<dd><a href='javascript:;' onclick='" + htm
-							+ "(\"" + data[i].child[b].menu_nav + "\",\""
+							+ "(\""+ data[i].menu_status + "\",\"" + data[i].child[b].menu_nav + "\",\""
 							+ data[i].child[b].menu_url + "\",\""
 							+ data[i].child[b].menu_id + "\")'>"
 							+ "<i class=\"layui-icon\">" + iconchild + "</i>"
@@ -173,7 +177,11 @@
 		element.render();
 	}
 	//点击左侧导航
-	function left_menu(nav, url, id) {
+	function left_menu(status,nav, url, id) {
+		if(status==0){
+			layer.msg("菜单已禁用",{icon:5});
+			return false;
+		}
 		$(".nav").html(nav);
 		$("iframe").attr("src", url);
 		$(".main_right").css("height", frameheight);

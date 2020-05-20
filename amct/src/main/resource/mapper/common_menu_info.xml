@@ -69,4 +69,8 @@
 	<delete id="del">
 		delete from common_menu_info where menu_id=#{menu_id}
 	</delete>
+	
+	<delete id="del_role_menu">
+		delete from common_role_menu where menu_id=#{menu_id}
+	</delete>
 </mapper>

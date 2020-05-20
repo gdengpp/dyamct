@@ -24,4 +24,6 @@ public interface menuDao {
 	Integer del(@Param("menu_id")String menu_id);
 	
 	Integer getCount();
+	
+	Integer del_role_menu(@Param("menu_id")String menu_id);
 }

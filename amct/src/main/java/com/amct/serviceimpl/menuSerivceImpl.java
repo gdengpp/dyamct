@@ -54,7 +54,18 @@ public class menuSerivceImpl implements menuService {
 
 	@Override
 	public Integer remove(String menu_id) {
-		return mu.del(menu_id);
+		//开启事务
+		Integer del = mu.del(menu_id);
+		Integer d = 0;
+		if(del==1){
+			d = mu.del_role_menu(menu_id);
+		}
+		if(d == 0){
+			//回滚
+		}else{
+			//提交
+		}
+		return d;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.amct.net;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import com.amct.dao.menuDao;
 import com.amct.dao.userDao;
 import com.amct.dto.tree;
 import com.amct.entity.menu;
+import com.amct.entity.user;
+import com.amct.service.userService;
 import com.amct.serviceimpl.menuSerivceImpl;
+import com.amct.util.MD5Util;
 
 @RunWith(SpringJUnit4ClassRunner.class) //表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = { "classpath:spring/spring.xml" })
@@ -22,7 +26,7 @@ public class testC {
 	@Autowired
 	private menuDao mu;
 	@Autowired
-	private userDao u;
+	private userService u;
 	
 	@Autowired
 	private menuSerivceImpl ms;
@@ -62,8 +66,19 @@ public class testC {
 	
 	@Test
 	public void test2(){
-		List<tree> list = ms.findTree("1");
-		System.out.println(list);
+		
+	}
+	
+	@Test
+	public void tt(){
+		String salt = MD5Util.getSalt(6);
+		System.out.println(salt);
+		Md5Hash shiromd5 = MD5Util.shiromd5("admin", salt);
+		System.out.println(shiromd5);
+		String key = MD5Util.getKey(shiromd5.toString(), salt);
+		System.out.println(key);
+		String password = MD5Util.getSaltByPassword(key);
+		System.out.println(password);
 	}
 }
 

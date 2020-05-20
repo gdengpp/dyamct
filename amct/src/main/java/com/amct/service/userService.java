@@ -1,13 +1,22 @@
 package com.amct.service;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
+import com.amct.entity.info;
 import com.amct.entity.user;
 
 @Service
 public interface userService {
 
 	//用户登录
-	user findLogin(String login_account);
+	info findLogin(String login_account,String password,HttpSession session);
+	
+	List<user> findAll(String user_name,Integer page,Integer limit);
+	
+	Integer getCount(String user_name);
 	
 }

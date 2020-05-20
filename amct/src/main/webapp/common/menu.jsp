@@ -281,7 +281,7 @@
                                 title: '菜单状态',
                                 align: 'left',
                                 templet: function (d) {
-                                    if (d.role_status == 1) {
+                                    if (d.menu_status == 0) {
                                         return "<span style='color:red'>禁用</span>";
                                     } else {
                                         return "正常";

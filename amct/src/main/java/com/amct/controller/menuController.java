@@ -18,7 +18,7 @@ import com.amct.entity.user;
 import com.amct.service.menuService;
 
 @Controller
-@RequestMapping("menu")
+@RequestMapping("/menu")
 @Scope("prototype")
 public class menuController {
 

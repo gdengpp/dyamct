@@ -5,14 +5,11 @@
 	<div class="bgWhitePadding">
 		<div class="layui-fluid">
 			<div class="layui-row">
-				<div class="layui-col-md2">
-					<ul id="menu_info"></ul>
-				</div>
-				<div class="layui-col-md10">
+				<div class="layui-col-md12">
 					<div class="layui-form">
 						<div class="layui-inline">
 							<div class="layui-input-inline">
-								<input type="text" value="" placeholder="用户名"
+								<input type="text" value="" placeholder="登录账号"
 									class="layui-input search_input" />
 							</div>
 							<div class="layui-btn-group">
@@ -51,38 +48,19 @@
 		table.render({
 			elem : '#logdatagrid',
 			id : 'logdatagrid',
-			url : basurl + 'role/getRoleAll',
+			url : basurl + 'log/getLogAll',
 			limits : [ 10, 20, 30, 50, 100, 300, 600, 1000 ],
 			cols : [ [ {
-				field : 'role_id',
-				type : 'checkbox'
-			}, {
-				field : 'role_code',
-				title : '角色编码',
+				field : 'login_account',
+				title : '登录账号',
 				align : 'left'
 			}, {
-				field : 'role_name',
-				title : '角色名称',
-				align : 'left'
-			}, {
-				field : 'role_status',
-				title : '角色状态',
+				field : 'login_time',
+				title : '登录时间',
 				align : 'left',
 				templet : function(d) {
-					if (d.role_status == 0) {
-						return "<span style='color:red'>禁用</span>";
-					} else {
-						return "正常";
-					}
+					return new Date(d.login_time).Format("yyyy-MM-dd hh:mm:ss");
 				}
-			}, {
-				field : 'role_order',
-				title : '排序',
-				align : 'left'
-			}, {
-				field : 'role_remark',
-				title : '备注',
-				align : 'left'
 			} ] ],
 			page : true,
 			done : function(res, curr, count) {
@@ -90,5 +68,28 @@
 				signleSelect($, 'logdatagrid');
 			}
 		});
+
+		Date.prototype.Format = function(fmt) { //author: meizz 
+			var o = {
+				"M+" : this.getMonth() + 1, //月份 
+				"d+" : this.getDate(), //日 
+				"H+" : this.getHours(), //小时 
+				"h+" : this.getHours(), //小时 
+				"m+" : this.getMinutes(), //分 
+				"s+" : this.getSeconds(), //秒 
+				"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
+				"S" : this.getMilliseconds()
+			//毫秒 
+			};
+			if (/(y+)/.test(fmt))
+				fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+						.substr(4 - RegExp.$1.length));
+			for ( var k in o)
+				if (new RegExp("(" + k + ")").test(fmt))
+					fmt = fmt.replace(RegExp.$1,
+							(RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k])
+									.substr(("" + o[k]).length)));
+			return fmt;
+		}
 	});
 </script>

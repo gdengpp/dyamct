@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.amct.dao.userDao">
-
-
 	<resultMap type="user" id="userRole">
 		<id property="user_id" column="user_id" />
 		<id property="user_name" column="user_name" />
@@ -31,7 +29,27 @@
 		common_user_info a
 		LEFT JOIN common_user_role b ON a.user_id =
 		b.user_id
-		LEFT JOIN common_role_info c ON b.role_id = c.role_id where a.login_account=#{login_account}
+		LEFT JOIN common_role_info c ON b.role_id = c.role_id where
+		a.login_account=#{login_account}
 	</select>
 
+	<select id="queryAll" resultType="user">
+		select * from common_user_info
+		<where>
+			<if test="user_name != null">
+				user_name like #{user_name,jdbcType=VARCHAR}
+			</if>
+		</where>
+		limit #{begin},#{end}
+	</select>
+
+	<select id="count" resultType="Integer">
+		select count(user_id) from
+		common_user_info
+		<where>
+			<if test="user_name != null">
+				user_name like #{user_name,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
 </mapper>
