@@ -23,6 +23,7 @@
                                             class="layui-icon">&#xe640;</i>删除
                                     </a>
                                 </c:if>
+                                 <a class="layui-btn layui-btn-primary resert_btn">刷新 </a>
                             </div>
                         </div>
                     </div>
@@ -107,7 +108,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block" style="margin-left: 78%">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="menuSubmit">立即提交</button>
             </div>
         </div>
     </form>
@@ -221,12 +222,14 @@
                                 });
                         } else {
                             layer.msg(data.msg, {
+                            	offset: '25%',
                                 icon: 5
                             });
                         }
                     },
                     error: function (res) {
                         layer.msg(res.msg, {
+                        offset: '25%',
                             icon: 5
                         });
                     }
@@ -305,7 +308,7 @@
                     addAndEdit();
                 });
                 //监听提交
-                form.on('submit(demo1)', function (data) {
+                form.on('submit(menuSubmit)', function (data) {
                     var datas = data.field;
                     var url = "${pageContext.request.contextPath}/menu/menu_add";
                     if(datas.menu_id){
@@ -319,9 +322,9 @@
                         success: function (r) {
                         	layer.close(add_edit);
                             if (r.success) {
-                                layer.msg(r.msg, { icon: 6 });
+                                layer.msg(r.msg, { offset: '25%',icon: 6 });
                             } else {
-                                layer.msg(r.msg, { icon: 5 });
+                                layer.msg(r.msg, { offset: '25%',icon: 5 });
                             }
                         }
                     });
@@ -332,19 +335,26 @@
                     
                     var data = table.checkStatus('menudatagrid').data;
                     if(data.length!=1){
-                    	layer.msg("请选择一条数据修改",{icon:5});
+                    	layer.msg("请选择一条数据修改",{offset: '25%',icon:5});
                     	return false;
                     }
                     addAndEdit(data);
                 });
+                
+                 $(".resert_btn").click(function() {
+						location.reload();
+					});
+					
+					
                 //del menu
                 $(".menu_del").click(function () {
                 	var data = table.checkStatus('menudatagrid').data;
                     if(data.length!=1){
-                    	layer.msg("请选择一条数据修改",{icon:5});
+                    	layer.msg("请选择一条数据修改",{offset: '25%',icon:5});
                     	return false;
                     }
                      layer.confirm('您是否要确认执行删除？', {
+                     offset: '25%',
 		                    btn: ['执行', '取消'] //按钮      
 		                }, function () {
 		                var del =  layer.load();
@@ -357,16 +367,10 @@
 		                        success: function (r) {
 		                        	layer.close(del);
 		                            if (r.success) {
-		                                layer.msg(r.msg, { icon: 6 });
-		                                table.reload('menudatagrid',
-													{
-														page : {
-															curr : 1
-														//重新从第 1 页开始
-														}
-													});
+		                                layer.msg(r.msg, { offset: '25%',icon: 6 });
+		                            	location.reload();
 		                            } else {
-		                                layer.msg(r.msg, { icon: 5 });
+		                                layer.msg(r.msg, { offset: '25%',icon: 5 });
 		                            }
 		                        }
 		                    });

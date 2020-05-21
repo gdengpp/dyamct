@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.amct.dto.findListDto;
 import com.amct.entity.info;
@@ -42,6 +43,16 @@ public class userController {
 
 		return us.findLogin(account,password,session);
 		
+	}
+	
+	@RequestMapping("/loginout")
+	@ResponseBody
+	public ModelAndView loginout(HttpSession session){
+		session.removeAttribute("user");
+		Object object = session.getAttribute("user");
+		System.out.println(object);
+		ModelAndView mv = new ModelAndView("redirect:/login.jsp");
+		return mv;
 	}
 
 	@ResponseBody

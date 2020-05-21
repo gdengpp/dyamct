@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.amct.dto.tree;
+import com.amct.entity.info;
 import com.amct.entity.menu;
 
 @Service
@@ -22,7 +23,7 @@ public interface menuService {
 	
 	Integer modify_menu(menu m);
 	
-	Integer remove(String menu_id);
+	info remove(String menu_id);
 	
 	Integer count();
 }

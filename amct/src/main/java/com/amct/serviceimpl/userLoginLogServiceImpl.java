@@ -2,7 +2,6 @@ package com.amct.serviceimpl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +20,7 @@ public class userLoginLogServiceImpl implements userLoginLogService {
 
 	@Override
 	public Integer addUserLoginLog(String login_account) {
-		return userlog.insertUserLoginLog(UUID.randomUUID().toString(),
-				login_account, new Date());
+		return userlog.insertUserLoginLog(login_account, new Date());
 	}
 
 	@Override

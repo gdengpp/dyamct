@@ -50,25 +50,76 @@
 			id : 'logdatagrid',
 			url : basurl + 'log/getLogAll',
 			limits : [ 10, 20, 30, 50, 100, 300, 600, 1000 ],
-			cols : [ [ {
-				field : 'login_account',
-				title : '登录账号',
-				align : 'left'
-			}, {
-				field : 'login_time',
-				title : '登录时间',
-				align : 'left',
-				templet : function(d) {
-					return new Date(d.login_time).Format("yyyy-MM-dd hh:mm:ss");
-				}
-			} ] ],
+			cols : [ [
+					{
+						field : 'login_account',
+						title : '登录账号',
+						align : 'left'
+					},
+					{
+						field : 'login_time',
+						title : '登录时间',
+						align : 'left',
+						templet : function(d) {
+							return new Date(d.login_time)
+									.Format("yyyy-MM-dd hh:mm:ss");
+						}
+					} ] ],
 			page : true,
 			done : function(res, curr, count) {
 				$(".laytable-cell-checkbox").css("padding", "5px");
 				signleSelect($, 'logdatagrid');
 			}
 		});
-
+		//查询
+		$(".search_btn").click(function() {
+			table.reload('logdatagrid', {
+				where : {
+					login_account : $(".search_input").val()
+				},
+				page : {
+					curr : 1
+				//重新从第 1 页开始
+				}
+			});
+		});
+		//重置
+		$(".resert_btn").click(function() {
+			$(".search_input").val("");
+			table.reload('logdatagrid', {
+				where : {
+					login_account : $(".search_input").val()
+				},
+				page : {
+					curr : 1
+				//重新从第 1 页开始
+				}
+			});
+		});
+		//清空
+		$(".role_del").click(function() {
+			layer.confirm('是否确定清空数据？', {
+				offset: '25%',
+				btn : [ '执行', '取消' ]
+			//按钮      
+			}, function() {
+				layer.load();
+				$.ajax({
+					url : basurl + 'log/removelog',
+					method : 'get',
+					success : function(r) {
+						layer.closeAll();
+						layer.msg("执行成功",{offset: '100px',icon:6});
+						table.reload('logdatagrid', {
+							page : {
+								curr : 1
+							//重新从第 1 页开始
+							}
+						});
+					}
+				});
+			});
+		});
 		Date.prototype.Format = function(fmt) { //author: meizz 
 			var o = {
 				"M+" : this.getMonth() + 1, //月份 

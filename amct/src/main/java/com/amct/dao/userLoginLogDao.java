@@ -10,8 +10,7 @@ import com.amct.entity.log;
 public interface userLoginLogDao {
 
 	// 登录成功后加入登录日志表中
-	Integer insertUserLoginLog(@Param("id") String id,
-			@Param("login_account") String login_account,
+	Integer insertUserLoginLog(@Param("login_account") String login_account,
 			@Param("login_time") Date login_time);
 
 	List<log> query(@Param("login_account") String login_account,

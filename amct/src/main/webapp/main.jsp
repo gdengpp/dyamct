@@ -42,7 +42,7 @@
 							<a href="javascript:;">修改密码</a>
 						</dd>
 						<dd>
-							<a href="javascript:;">退出</a>
+							<a href="javascript:;" class="loginout">退出</a>
 						</dd>
 					</dl></li>
 			</ul>
@@ -133,6 +133,15 @@
 			});
 			//头部菜单结束================================================
 
+		});
+		
+		$(".loginout").click(function(){
+			layer.confirm('是否退出登录？', {
+				btn : [ '确定', '取消' ]
+			//按钮      
+			}, function() {
+				location.href="${pageContext.request.contextPath}/user/loginout";
+			});
 		});
 	});
 

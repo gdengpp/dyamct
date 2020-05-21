@@ -45,8 +45,7 @@ public class userServiceImpl implements userService {
 			info.setSuccess(false);
 			return info;
 		}
-		Integer log = userlog.insertUserLoginLog(UUID.randomUUID().toString(),
-				login_account, new Date());
+		Integer log = userlog.insertUserLoginLog(login_account, new Date());
 		if (log == 1) {
 			info.setMsg("登录成功");
 			info.setSuccess(true);

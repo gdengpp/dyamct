@@ -31,7 +31,7 @@ public class menuController {
 		// 获取session中的用户信息
 		user u = (user) session.getAttribute("user");
 		// u.getRole().getRole_id()-->取出用户信息中角色id（role_id）查询角色拥有权限菜单
-		List<menu> list = m.find(u.getRole().getRole_id(),u.getUser_name());
+		List<menu> list = m.find(u.getRole().getRole_id(), u.getUser_name());
 		return list;
 	}
 
@@ -95,16 +95,7 @@ public class menuController {
 	@RequestMapping("/menu_del")
 	@ResponseBody
 	public info menu_del(String menu_id) {
-		Integer add = m.remove(menu_id);
-		info info = new info();
-		if (add == 1) {
-			info.setMsg("删除数据成功");
-			info.setSuccess(true);
-		} else {
-			info.setMsg("删除数据失败");
-			info.setSuccess(false);
-		}
-		return info;
+		return m.remove(menu_id);
 	}
 
 }

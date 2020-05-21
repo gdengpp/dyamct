@@ -4,9 +4,11 @@
 
 	<!-- 登录成功后加入登录日志表中 -->
 	<insert id="insertUserLoginLog">
-		insert into common_user_login_log(id,login_account,login_time) value(#{id},#{login_account},#{login_time})
+		insert into
+		common_user_login_log(login_account,login_time)
+		value(#{login_account},#{login_time})
 	</insert>
-	
+
 	<select id="query" resultType="log">
 		select * from common_user_login_log
 		<where>
@@ -14,9 +16,10 @@
 				login_account like #{login_account,jdbcType=VARCHAR}
 			</if>
 		</where>
-		limit #{begin},#{end} 
+		ORDER BY id desc
+		limit #{begin},#{end}
 	</select>
-	
+
 	<select id="count" resultType="Integer">
 		select count(id) from
 		common_user_login_log
@@ -26,7 +29,7 @@
 			</if>
 		</where>
 	</select>
-	
+
 	<delete id="del">
 		delete from common_user_login_log
 	</delete>

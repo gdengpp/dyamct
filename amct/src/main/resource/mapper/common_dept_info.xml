@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.amct.dao.deptDao">
+
+
+	<select id="query" resultType="dept">
+		select a.* from common_dept_info a
+		ORDER BY a.dept_order ASC
+	</select>
+
+
+	<select id="queryByBeginAndEnd" resultType="dept">
+		select a.* from
+		common_dept_info a
+		ORDER BY a.dept_order ASC limit
+		#{begin},#{end}
+	</select>
+
+	<select id="queryByDeptId" resultType="dept">
+		select * from common_dept_info where dept_pid = #{dept_id}
+	</select>
+
+	<select id="getCount" resultType="Integer">
+		select count(dept_id) from
+		common_dept_info
+	</select>
+
+	<select id="queryAll" resultType="dept">
+		select a.* from
+		common_dept_info a
+		ORDER BY a.dept_order ASC
+	</select>
+
+	<insert id="insert_dept">
+		insert into
+		common_dept_info(dept_id,dept_name,dept_code,dept_order,dept_pid,dept_remark)
+		values(#{dept_id},#{dept_name},#{dept_code},#{dept_order},#{dept_pid},#{dept_remark})
+	</insert>
+
+	<update id="update_dept">
+		update common_dept_info
+		<set>
+			<if test="dept_name!=null and dept_name!=''">
+				dept_name=#{dept_name},
+			</if>
+			<if test="dept_code!=null and dept_code!=''">
+				dept_code=#{dept_code},
+			</if>
+			<if test="dept_order!=null and dept_order!=''">
+				dept_order=#{dept_order},
+			</if>
+			<if test="dept_pid!=null and dept_pid!=''">
+				dept_pid=#{dept_pid},
+			</if>
+			<if test="dept_remark!=null and dept_remark!=''">
+				dept_remark=#{dept_remark},
+			</if>
+		</set>
+		where dept_id=#{dept_id}
+	</update>
+
+	<delete id="del">
+		delete from common_dept_info where dept_id=#{dept_id}
+	</delete>
+</mapper>

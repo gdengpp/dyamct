@@ -15,9 +15,15 @@
 		ORDER BY a.menu_order ASC limit
 		#{begin},#{end}
 	</select>
-	
+
+	<select id="queryByMenu_id" resultType="menu">
+		select * from
+		common_menu_info where menu_pid=#{menu_id}
+	</select>
+
 	<select id="getCount" resultType="Integer">
-		select count(menu_id) from common_menu_info
+		select count(menu_id) from
+		common_menu_info
 	</select>
 
 	<select id="queryAll" resultType="menu">
@@ -33,7 +39,7 @@
 	</insert>
 
 	<update id="update_menu">
-		update common_menu_info 
+		update common_menu_info
 		<set>
 			<if test="menu_code!=null and menu_code!=''">
 				menu_code=#{menu_code},
@@ -65,11 +71,11 @@
 		</set>
 		where menu_id=#{menu_id}
 	</update>
-	
+
 	<delete id="del">
 		delete from common_menu_info where menu_id=#{menu_id}
 	</delete>
-	
+
 	<delete id="del_role_menu">
 		delete from common_role_menu where menu_id=#{menu_id}
 	</delete>

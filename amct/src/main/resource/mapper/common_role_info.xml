@@ -6,7 +6,7 @@
 		select * from common_role_info
 		<where>
 			<if test="role_name != null">
-				role_name like #{user_name,jdbcType=VARCHAR}
+				role_name like #{role_name,jdbcType=VARCHAR}
 			</if>
 		</where>
 		limit #{begin},#{end}
@@ -16,7 +16,7 @@
 		select count(role_id) from common_role_info
 		<where>
 			<if test="role_name != null">
-				role_name like #{user_name,jdbcType=VARCHAR}
+				role_name like #{role_name,jdbcType=VARCHAR}
 			</if>
 		</where>
 	</select>
