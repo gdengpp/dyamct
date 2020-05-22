@@ -23,7 +23,8 @@
                                             class="layui-icon">&#xe640;</i>删除
                                     </a>
                                 </c:if>
-                                 <a class="layui-btn layui-btn-primary resert_btn">刷新 </a>
+                                 <a class="layui-btn layui-btn-primary resert_btn"><i
+										class="layui-icon">&#xe669;</i>刷新 </a>
                             </div>
                         </div>
                     </div>
@@ -79,7 +80,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">菜单排序</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="menu_order" autocomplete="off" class="layui-input">
+                    <input type="number" name="menu_order" autocomplete="off" value=1 class="layui-input">
                 </div>
             </div>
         </div>

@@ -19,4 +19,9 @@ public interface userService {
 	
 	Integer getCount(String user_name);
 	
+	info add(user u);
+	
+	info modify(user u);
+	
+	info remove(String user_id);
 }

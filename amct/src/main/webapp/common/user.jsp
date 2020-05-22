@@ -18,7 +18,8 @@
 							<div class="layui-btn-group">
 								<a class="layui-btn layui-btn-primary search_btn"> <i
 									class="layui-icon">&#xe615;</i>查询
-								</a><a class="layui-btn layui-btn-primary resert_btn"> 重置 </a> <a
+								</a><a class="layui-btn layui-btn-primary resert_btn"><i
+										class="layui-icon">&#xe669;</i> 重置 </a> <a
 									class="layui-btn layui-btn-primary user_add"> <i
 									class="layui-icon">&#xe654;</i>新增
 								</a> <a class="layui-btn layui-btn-primary user_edit"> <i
@@ -67,15 +68,32 @@
 			<div class="layui-inline">
 				<label class="layui-form-label">登录账号</label>
 				<div class="layui-input-inline">
-					<input type="text" name="login_account" autocomplete="off" lay-verify="required"
-						class="layui-input">
+					<input type="text" name="login_account" autocomplete="off"
+						lay-verify="required" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-inline">
 				<label class="layui-form-label">登录密码</label>
 				<div class="layui-input-inline">
-					<input type="text" name="login_password" autocomplete="off" lay-verify="required"
-						class="layui-input">
+					<input type="password" name="login_password" autocomplete="off"
+						lay-verify="required" class="layui-input">
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">所属角色</label>
+				<div class="layui-input-inline">
+					<select name="role.role_id" id="role_id" lay-filter="role_id">
+
+					</select>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">用户电话</label>
+				<div class="layui-input-inline">
+					<input type="tel" name="user_phone" autocomplete="off"
+						class="layui-input" lay-verify="required|phone">
 				</div>
 			</div>
 		</div>
@@ -88,21 +106,14 @@
 				</div>
 			</div>
 			<div class="layui-inline">
-				<label class="layui-form-label">用户电话</label>
-				<div class="layui-input-inline">
-					<input type="text" name="user_phone" autocomplete="off"
-						class="layui-input">
-				</div>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<div class="layui-inline">
 				<label class="layui-form-label">账号状态</label>
 				<div class="layui-input-inline">
 					<input type="radio" name="user_status" value="1" title="启用" checked><input
 						type="radio" name="user_status" value="0" title="禁用">
 				</div>
 			</div>
+		</div>
+		<div class="layui-form-item">
 			<div class="layui-inline">
 				<label class="layui-form-label">性别</label>
 				<div class="layui-input-inline">
@@ -110,12 +121,10 @@
 						type="radio" name="user_sex" value="0" title="女">
 				</div>
 			</div>
-		</div>
-		<div class="layui-form-item">
 			<div class="layui-inline">
 				<label class="layui-form-label">排序</label>
 				<div class="layui-input-inline">
-					<input type="text" name="user_order" autocomplete="off"
+					<input type="number" name="user_order" autocomplete="off" value=1
 						class="layui-input">
 				</div>
 			</div>
@@ -268,14 +277,81 @@
 						});
 
 						//删除
-						$(".user_del").click(function() {
-							console.log("删除");
-						});
+						$(".user_del")
+								.click(
+										function() {
+											var data = table
+													.checkStatus('userdatagrid').data;
+											if (data.length != 1) {
+												layer.msg("请选择一条数据删除", {
+													icon : 5,
+													offset : '25%',
+												});
+												return false;
+											}
+
+											layer
+													.confirm(
+															'您是否要确认执行删除？',
+															{
+																offset : '25%',
+																btn : [ '执行',
+																		'取消' ]
+															//按钮      
+															},
+															function() {
+																var del = layer
+																		.load();
+																$
+																		.ajax({
+																			url : "${pageContext.request.contextPath}/user/user_del",
+																			method : 'get',
+																			data : {
+																				user_id : data[0].user_id
+																			},
+																			success : function(
+																					r) {
+																				layer
+																						.close(del);
+																				if (r.success) {
+																					layer
+																							.msg(
+																									r.msg,
+																									{
+																										icon : 6,
+																										offset : '25%',
+																									});
+																					table
+																							.reload(
+																									"userdatagrid",
+																									{
+																										page : 1
+																									});
+																				} else {
+																					layer
+																							.msg(
+																									r.msg,
+																									{
+																										icon : 5,
+																										offset : '25%',
+																									});
+																				}
+																			}
+																		});
+															});
+
+										});
 
 						function addAndEdit(data) {
 							if (data) {
-								$("input[name='user_status'][value="+ data[0].user_status + "]").prop('checked', true);
-								$("input[name='user_sex'][value="+ data[0].user_sex + "]").prop('checked', true);
+								$(
+										"input[name='user_status'][value="
+												+ data[0].user_status + "]")
+										.prop('checked', true);
+								$(
+										"input[name='user_sex'][value="
+												+ data[0].user_sex + "]").prop(
+										'checked', true);
 								form.val("user_form", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
 									"user_id" : data[0].user_id, // "name": "value"
 									"user_name" : data[0].user_name,
@@ -325,19 +401,34 @@
 														},
 														// 点击回调
 														click : function(d) {
-															$("input[name=user_dept_id]").val(d.current.id);
+															$(
+																	"input[name=user_dept_id]")
+																	.val(
+																			d.current.id);
 														},
 														// 加载完成后的回调函数
 														success : function(d) {
 															if (data) {
 																if (data[0].user_dept_id == "0") {
-																	$("input[name=user_dept_id]").val(data[0].user_dept_id);
+																	$(
+																			"input[name=user_dept_id]")
+																			.val(
+																					data[0].user_dept_id);
 																	//选中节点，根据id筛选
-																	treeSelect.checkNode('tree',data[0].user_dept_id);
+																	treeSelect
+																			.checkNode(
+																					'tree',
+																					data[0].user_dept_id);
 																} else {
-																	$("input[name=user_dept_id]").val(data[0].user_dept_id);
+																	$(
+																			"input[name=user_dept_id]")
+																			.val(
+																					data[0].user_dept_id);
 																	//选中节点，根据id筛选
-																	treeSelect.checkNode('tree',data[0].user_dept_id);
+																	treeSelect
+																			.checkNode(
+																					'tree',
+																					data[0].user_dept_id);
 																}
 															}
 															//选中节点，根据id筛选
@@ -350,34 +441,94 @@
 																	.refresh('tree');
 														}
 													});
+											//加载角色信息
+											$
+													.ajax({
+														url : "${pageContext.request.contextPath}/role/findAll",
+														method : 'get',
+														success : function(r) {
+															console.log(r)
+															console.log(data)
+															var html = "<option value=\"\">请选择所属角色</option>"
+															for ( var i in r) {
+																if (data) {
+																	if (data[0].role.role_id) {
+																		if (data[0].role.role_id == r[i].role_id) {
+																			html = html
+																					+ "<option value='" + r[i].role_id + "' selected=''>"
+																					+ r[i].role_name
+																					+ "</option>";
+																		} else {
+																			html = html
+																					+ "<option value='" + r[i].role_id + "'>"
+																					+ r[i].role_name
+																					+ "</option>";
+																		}
+																	} else {
+																		html = html
+																				+ "<option value='" + r[i].role_id + "'>"
+																				+ r[i].role_name
+																				+ "</option>";
+																	}
+
+																} else {
+																	html = html
+																			+ "<option value='" + r[i].role_id + "'>"
+																			+ r[i].role_name
+																			+ "</option>";
+																}
+															}
+															$("#role_id").html(
+																	html);
+															form.render();
+														}
+													});
 										}
 									});
 
 						}
-						
+
 						//监听提交
-                form.on('submit(userSubmit)', function (data) {
-                //20200521 写到这里--====
-                    var datas = data.field;
-                    var url = "${pageContext.request.contextPath}/user/user_add";
-                    if(datas.dept_id){
-                    	url = "${pageContext.request.contextPath}/user/user_edit";
-                    }
-                    var add_edit = layer.load();
-                    $.ajax({
-                        url: url,
-                        method: 'post',
-                        data: datas,
-                        success: function (r) {
-                        	layer.close(add_edit);
-                            if (r.success) {
-                                layer.msg(r.msg, { icon: 6 ,offset: '25%',});
-                            } else {
-                                layer.msg(r.msg, { icon: 5 ,offset: '25%',});
-                            }
-                        }
-                    });
-                    return false;
-                });
+						form
+								.on(
+										'submit(userSubmit)',
+										function(data) {
+											var datas = data.field;
+											var url = "${pageContext.request.contextPath}/user/user_add";
+											if (datas.user_id) {
+												url = "${pageContext.request.contextPath}/user/user_edit";
+											}
+											var add_edit = layer.load();
+											$.ajax({
+												url : url,
+												method : 'post',
+												data : datas,
+												success : function(r) {
+													layer.close(add_edit);
+													if (r.success) {
+														layer.msg(r.msg, {
+															icon : 6,
+															offset : '25%',
+														});
+														table.reload(
+																"userdatagrid",
+																{
+																	page : 1
+																});
+													} else {
+														layer.msg(r.msg, {
+															icon : 5,
+															offset : '25%',
+														});
+														table.reload(
+																"userdatagrid",
+																{
+																	page : 1
+																});
+													}
+												}
+											});
+											return false;
+										});
 					});
 </script>

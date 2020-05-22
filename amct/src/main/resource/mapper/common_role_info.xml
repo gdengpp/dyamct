@@ -9,6 +9,7 @@
 				role_name like #{role_name,jdbcType=VARCHAR}
 			</if>
 		</where>
+		ORDER BY role_order ASC
 		limit #{begin},#{end}
 	</select>
 
@@ -19,5 +20,9 @@
 				role_name like #{role_name,jdbcType=VARCHAR}
 			</if>
 		</where>
+	</select>
+	
+	<select id="query" resultType="roles">
+		select * from common_role_info
 	</select>
 </mapper>

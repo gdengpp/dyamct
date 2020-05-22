@@ -34,4 +34,9 @@ public class rolesServiceImpl implements rolesService {
 		return rd.count(role_name);
 	}
 
+	@Override
+	public List<roles> find() {
+		return rd.query();
+	}
+
 }

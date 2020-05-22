@@ -41,16 +41,14 @@ public class userController {
 			return info;
 		}
 
-		return us.findLogin(account,password,session);
-		
+		return us.findLogin(account, password, session);
+
 	}
-	
+
 	@RequestMapping("/loginout")
 	@ResponseBody
-	public ModelAndView loginout(HttpSession session){
+	public ModelAndView loginout(HttpSession session) {
 		session.removeAttribute("user");
-		Object object = session.getAttribute("user");
-		System.out.println(object);
 		ModelAndView mv = new ModelAndView("redirect:/login.jsp");
 		return mv;
 	}
@@ -62,11 +60,33 @@ public class userController {
 		List<user> list = us.findAll(user_name, page, limit);
 		Integer count = us.getCount(user_name);
 		findListDto<user> fd = new findListDto<user>();
-		//layui code设置为0，前台页面显示数据，其他则不战术数据
+		// layui code设置为0，前台页面显示数据，其他则不战术数据
 		fd.setCode(0);
 		fd.setCount(count);
 		fd.setData(list);
 		fd.setMsg("查询成功");
 		return fd;
+	}
+
+	@ResponseBody
+	@RequestMapping("/user_add")
+	public info user_add(user u) {
+		return us.add(u);
+	}
+
+	@ResponseBody
+	@RequestMapping("/user_edit")
+	public info user_edit(user u, HttpSession session) {
+		user uu = (user) session.getAttribute("user");
+		if (uu.getUser_id().equals(u.getUser_id())) {
+			session.removeAttribute("user");
+		}
+		return us.modify(u);
+	}
+
+	@ResponseBody
+	@RequestMapping("/user_del")
+	public info user_edit(String user_id) {
+		return us.remove(user_id);
 	}
 }

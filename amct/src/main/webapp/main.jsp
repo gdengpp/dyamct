@@ -85,13 +85,6 @@
 			//初始化内容高
 			var frame = $("#dbody");
 			frame.css("height", frameheight);
-			if (${user==null}) {
-				layer.msg("登录过期，请重新登录", {
-					icon : 5
-				});
-				location.href = "login.jsp";
-			}
-			;
 			//加载顶部菜单===============================================
 			$.ajax({
 				url : "${pageContext.request.contextPath}/menu/find_menu",

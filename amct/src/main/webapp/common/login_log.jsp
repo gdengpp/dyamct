@@ -15,7 +15,8 @@
 							<div class="layui-btn-group">
 								<a class="layui-btn layui-btn-primary search_btn"> <i
 									class="layui-icon">&#xe615;</i>查询
-								</a><a class="layui-btn layui-btn-primary resert_btn">重置 </a>
+								</a><a class="layui-btn layui-btn-primary resert_btn"><i
+										class="layui-icon">&#xe669;</i>重置 </a>
 								<c:if test="${user.role.role_code=='sysadmin' }">
 									<a class="layui-btn layui-btn-primary role_del"> <i
 										class="layui-icon">&#xe669;</i>清空

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50556
 File Encoding         : 65001
 
-Date: 2020-05-21 23:43:57
+Date: 2020-05-22 20:27:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -125,7 +125,8 @@ CREATE TABLE `common_user_info` (
 -- ----------------------------
 -- Records of common_user_info
 -- ----------------------------
-INSERT INTO `common_user_info` VALUES ('1', 'sysadmin', 'admin', '35eYI0FHG08c862ab1cb9a4ca15af65f3dd696', null, null, null, '0', '1', '1');
+INSERT INTO `common_user_info` VALUES ('1', 'sysadmin', 'admin', '0beY3L0GS9bc35dcf90fa32ee4f92654744f1f', null, '15692719375', '1', '0', '1', '1');
+INSERT INTO `common_user_info` VALUES ('4a78a9e3-d90a-4f6b-9e64-7765c5e28f08', 'dpp', 'dengpp', 'a89EDOXQZfca9bf8d9de85a465b8890e53e3a1', 'xxcv', '18798477113', '1', '1', '1', '2');
 
 -- ----------------------------
 -- Table structure for common_user_login_log
@@ -136,11 +137,18 @@ CREATE TABLE `common_user_login_log` (
   `login_account` varchar(64) DEFAULT NULL,
   `login_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of common_user_login_log
 -- ----------------------------
+INSERT INTO `common_user_login_log` VALUES ('1', 'admin', '2020-05-22 15:54:38');
+INSERT INTO `common_user_login_log` VALUES ('2', 'admin', '2020-05-22 16:57:18');
+INSERT INTO `common_user_login_log` VALUES ('3', 'admin', '2020-05-22 17:05:06');
+INSERT INTO `common_user_login_log` VALUES ('4', 'admin', '2020-05-22 17:19:39');
+INSERT INTO `common_user_login_log` VALUES ('5', 'dengpp', '2020-05-22 17:25:01');
+INSERT INTO `common_user_login_log` VALUES ('6', 'dengpp', '2020-05-22 17:27:45');
+INSERT INTO `common_user_login_log` VALUES ('7', 'admin', '2020-05-22 17:28:02');
 
 -- ----------------------------
 -- Table structure for common_user_role
@@ -156,4 +164,6 @@ CREATE TABLE `common_user_role` (
 -- ----------------------------
 -- Records of common_user_role
 -- ----------------------------
-INSERT INTO `common_user_role` VALUES ('1', '1', '1');
+INSERT INTO `common_user_role` VALUES ('12180a44-822f-4daf-95f1-e019bf59b562', '1', '1');
+INSERT INTO `common_user_role` VALUES ('26720462-049d-4183-b992-cc95c9000873', '4a78a9e3-d90a-4f6b-9e64-7765c5e28f08', '1');
+INSERT INTO `common_user_role` VALUES ('7b9ed3a9-88c0-4d68-a6a5-5c18c21a9755', '0571af88-de07-4759-9a42-54cf6345aa47', '1');

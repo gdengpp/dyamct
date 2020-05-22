@@ -12,4 +12,6 @@ public interface roleDao {
 			@Param("begin") Integer begin, @Param("end") Integer end);
 	
 	Integer count(@Param("role_name") String role_name);
+	
+	List<roles> query();
 }

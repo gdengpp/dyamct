@@ -31,4 +31,10 @@ public class roleController {
 		fd.setMsg("查询成功");
 		return fd;
 	}
+	
+	@RequestMapping("/findAll")
+	@ResponseBody
+	public List<roles> findAll(){
+		return rs.find();
+	}
 }

@@ -18,7 +18,8 @@
 							<div class="layui-btn-group">
 								<a class="layui-btn layui-btn-primary search_btn"> <i
 									class="layui-icon">&#xe615;</i>查询
-								</a><a class="layui-btn layui-btn-primary resert_btn">重置 </a> <a
+								</a><a class="layui-btn layui-btn-primary resert_btn"><i
+										class="layui-icon">&#xe669;</i>重置 </a> <a
 									class="layui-btn layui-btn-primary role_auth"> <i
 									class="layui-icon">&#xe672;</i>授权
 								</a> <a class="layui-btn layui-btn-primary role_add"> <i
