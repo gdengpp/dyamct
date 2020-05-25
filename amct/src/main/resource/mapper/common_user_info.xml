@@ -11,6 +11,7 @@
 		<id property="user_status" column="user_status" />
 		<id property="user_sex" column="user_sex" />
 		<id property="user_dept_id" column="user_dept_id" />
+		<id property="user_order" column="user_order" />
 		<collection property="role" javaType="roles">
 			<id property="role_id" column="role_id" />
 			<id property="role_code" column="role_code" />
@@ -51,6 +52,7 @@
 		ORDER BY a.user_order ASC
 		limit #{begin},#{end}
 	</select>
+	
 
 	<select id="count" resultType="Integer">
 		SELECT
@@ -87,31 +89,31 @@
 	<update id="update">
 		update common_user_info
 		<set>
-			<if test="user_name!=null and user_name!=''">
+			<if test="user_name!=null">
 				user_name=#{user_name},
 			</if>
-			<if test="login_account!=null and login_account!=''">
+			<if test="login_account!=null">
 				login_account=#{login_account},
 			</if>
-			<if test="login_password!=null and login_password!=''">
+			<if test="login_password!=null">
 				login_password=#{login_password},
 			</if>
-			<if test="user_email!=null and user_email!=''">
+			<if test="user_email!=null">
 				user_email=#{user_email},
 			</if>
-			<if test="user_phone!=null and user_phone!=''">
+			<if test="user_phone!=null">
 				user_phone=#{user_phone},
 			</if>
-			<if test="user_status!=null and user_status!=''">
+			<if test="user_status!=null">
 				user_status=#{user_status},
 			</if>
-			<if test="user_sex!=null and user_sex!=''">
+			<if test="user_sex!=null">
 				user_sex=#{user_sex},
 			</if>
-			<if test="user_dept_id!=null and user_dept_id!=''">
+			<if test="user_dept_id!=null">
 				user_dept_id=#{user_dept_id},
 			</if>
-			<if test="user_order!=null and user_order!=''">
+			<if test="user_order!=null">
 				user_order=#{user_order},
 			</if>
 		</set>

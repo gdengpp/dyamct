@@ -19,7 +19,7 @@
 								<a class="layui-btn layui-btn-primary search_btn"> <i
 									class="layui-icon">&#xe615;</i>查询
 								</a><a class="layui-btn layui-btn-primary resert_btn"><i
-										class="layui-icon">&#xe669;</i> 重置 </a> <a
+									class="layui-icon">&#xe669;</i> 重置 </a> <a
 									class="layui-btn layui-btn-primary user_add"> <i
 									class="layui-icon">&#xe654;</i>新增
 								</a> <a class="layui-btn layui-btn-primary user_edit"> <i
@@ -158,7 +158,7 @@
 								.render({
 									elem : '#userdatagrid',
 									id : 'userdatagrid',
-									url : basurl + 'user/find_all',
+									url : basurl + 'user/find_all.do',
 									limits : [ 10, 20, 30, 50, 100, 300, 600,
 											1000 ],
 									cols : [ [
@@ -202,7 +202,7 @@
 													if (d.user_status == 0) {
 														return "<span style='color:red'>禁用</span>";
 													} else {
-														return "正常";
+														return "启用";
 													}
 												}
 											}, {
@@ -217,9 +217,9 @@
 													}
 												}
 											}, {
-												field : 'user_dept_id',
+												field : 'dept_name',
 												title : '所属部门',
-												align : 'left'
+												align : 'left',
 											}, {
 												field : 'user_order',
 												title : '排序',
@@ -259,7 +259,6 @@
 						});
 						//新增
 						$(".user_add").click(function() {
-							console.log("新增");
 							addAndEdit();
 						});
 
@@ -304,7 +303,7 @@
 																		.load();
 																$
 																		.ajax({
-																			url : "${pageContext.request.contextPath}/user/user_del",
+																			url : "${pageContext.request.contextPath}/user/user_del.do",
 																			method : 'get',
 																			data : {
 																				user_id : data[0].user_id
@@ -343,7 +342,9 @@
 										});
 
 						function addAndEdit(data) {
+							var str = "添加用户";
 							if (data) {
+								str = "修改用户";
 								$(
 										"input[name='user_status'][value="
 												+ data[0].user_status + "]")
@@ -365,7 +366,7 @@
 							layui.layer
 									.open({
 										type : 1, //弹窗类型
-										title : "添加菜单", //显示标题
+										title : str, //显示标题
 										anim : 0,
 										shade : 0.3,
 										offset : '100px',
@@ -383,7 +384,7 @@
 														// 选择器
 														elem : '#tree',
 														// 数据
-														data : '${pageContext.request.contextPath}/dept/find_dept_tree',
+														data : '${pageContext.request.contextPath}/dept/find_dept_tree.do',
 														// 异步加载方式：get/post，默认get
 														type : 'get',
 														// 占位符
@@ -444,38 +445,44 @@
 											//加载角色信息
 											$
 													.ajax({
-														url : "${pageContext.request.contextPath}/role/findAll",
+														url : "${pageContext.request.contextPath}/role/findAll.do",
 														method : 'get',
 														success : function(r) {
-															console.log(r)
-															console.log(data)
 															var html = "<option value=\"\">请选择所属角色</option>"
 															for ( var i in r) {
 																if (data) {
-																	if (data[0].role.role_id) {
-																		if (data[0].role.role_id == r[i].role_id) {
+																	if (data[0].role && data[0].role.role_id) {
+																		if (data[0].role.role_id == r[i].role_id
+																				&& r[i].role_status == 1) {
 																			html = html
 																					+ "<option value='" + r[i].role_id + "' selected=''>"
 																					+ r[i].role_name
 																					+ "</option>";
 																		} else {
+																			if (r[i].role_status == 1) {
+																				html = html
+																						+ "<option value='" + r[i].role_id + "'>"
+																						+ r[i].role_name
+																						+ "</option>";
+																			}
+																		}
+																	} else {
+																		if (r[i].role_status == 1) {
 																			html = html
 																					+ "<option value='" + r[i].role_id + "'>"
 																					+ r[i].role_name
 																					+ "</option>";
 																		}
-																	} else {
+
+																	}
+
+																} else {
+																	if (r[i].role_status == 1) {
 																		html = html
 																				+ "<option value='" + r[i].role_id + "'>"
 																				+ r[i].role_name
 																				+ "</option>";
 																	}
-
-																} else {
-																	html = html
-																			+ "<option value='" + r[i].role_id + "'>"
-																			+ r[i].role_name
-																			+ "</option>";
 																}
 															}
 															$("#role_id").html(
@@ -494,9 +501,9 @@
 										'submit(userSubmit)',
 										function(data) {
 											var datas = data.field;
-											var url = "${pageContext.request.contextPath}/user/user_add";
+											var url = "${pageContext.request.contextPath}/user/user_add.do";
 											if (datas.user_id) {
-												url = "${pageContext.request.contextPath}/user/user_edit";
+												url = "${pageContext.request.contextPath}/user/user_edit.do";
 											}
 											var add_edit = layer.load();
 											$.ajax({

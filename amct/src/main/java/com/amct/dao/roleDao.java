@@ -14,4 +14,16 @@ public interface roleDao {
 	Integer count(@Param("role_name") String role_name);
 	
 	List<roles> query();
+	
+	Integer del(@Param("role_id")String role_id);
+	
+	Integer add(roles role);
+	
+	Integer upd(roles role);
+	
+	List<String> queryMenuId(@Param("role_id") String role_id);
+	
+	Integer authDao(@Param("id")String id,@Param("role_id")String role_id,@Param("menu_id")String menu_id);
+	
+	void authDel(@Param("role_id")String role_id);
 }

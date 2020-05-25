@@ -41,31 +41,31 @@
 	<update id="update_menu">
 		update common_menu_info
 		<set>
-			<if test="menu_code!=null and menu_code!=''">
+			<if test="menu_code!=null">
 				menu_code=#{menu_code},
 			</if>
-			<if test="menu_name!=null and menu_name!=''">
+			<if test="menu_name!=null">
 				menu_name=#{menu_name},
 			</if>
-			<if test="menu_nav!=null and menu_nav!=''">
+			<if test="menu_nav!=null">
 				menu_nav=#{menu_nav},
 			</if>
-			<if test="menu_remark!=null and menu_remark!=''">
+			<if test="menu_remark!=null">
 				menu_remark=#{menu_remark},
 			</if>
-			<if test="menu_url!=null and menu_url!=''">
+			<if test="menu_url!=null">
 				menu_url=#{menu_url},
 			</if>
-			<if test="menu_cls!=null and menu_cls!=''">
+			<if test="menu_cls!=null">
 				menu_cls=#{menu_cls},
 			</if>
-			<if test="menu_order!=null and menu_order!=''">
+			<if test="menu_order!=null">
 				menu_order=#{menu_order},
 			</if>
-			<if test="menu_pid!=null and menu_pid!=''">
+			<if test="menu_pid!=null">
 				menu_pid=#{menu_pid},
 			</if>
-			<if test="menu_status!=null and menu_status!=''">
+			<if test="menu_status!=null">
 				menu_status=#{menu_status},
 			</if>
 		</set>

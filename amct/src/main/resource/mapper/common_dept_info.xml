@@ -19,6 +19,11 @@
 	<select id="queryByDeptId" resultType="dept">
 		select * from common_dept_info where dept_pid = #{dept_id}
 	</select>
+	
+	<!-- 人员管理中查询部门展示 -->
+	<select id="queryByDeptIdOne" resultType="dept">
+		select * from common_dept_info where dept_id = #{dept_id}
+	</select>
 
 	<select id="getCount" resultType="Integer">
 		select count(dept_id) from
@@ -40,19 +45,19 @@
 	<update id="update_dept">
 		update common_dept_info
 		<set>
-			<if test="dept_name!=null and dept_name!=''">
+			<if test="dept_name!=null">
 				dept_name=#{dept_name},
 			</if>
-			<if test="dept_code!=null and dept_code!=''">
+			<if test="dept_code!=null">
 				dept_code=#{dept_code},
 			</if>
-			<if test="dept_order!=null and dept_order!=''">
+			<if test="dept_order!=null">
 				dept_order=#{dept_order},
 			</if>
-			<if test="dept_pid!=null and dept_pid!=''">
+			<if test="dept_pid!=null">
 				dept_pid=#{dept_pid},
 			</if>
-			<if test="dept_remark!=null and dept_remark!=''">
+			<if test="dept_remark!=null">
 				dept_remark=#{dept_remark},
 			</if>
 		</set>

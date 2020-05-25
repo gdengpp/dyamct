@@ -66,7 +66,11 @@ public class testC {
 	
 	@Test
 	public void test2(){
-		
+		List<user> list = u.findAll(null, 1, 10);
+		System.out.println(list);
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getUser_dept_id());
+		}
 	}
 	
 	@Test

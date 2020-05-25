@@ -25,5 +25,7 @@ public interface deptDao {
 	Integer getCount();
 	
 	List<dept> queryByDeptId(@Param("dept_id") String dept_id);
+	
+	dept queryByDeptIdOne(@Param("dept_id") String dept_id);
 
 }

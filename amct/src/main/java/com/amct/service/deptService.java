@@ -27,4 +27,6 @@ public interface deptService {
 	info remove(String dept_id);
 	
 	Integer count();
+	
+	dept findByDeptId(String dept_id);
 }

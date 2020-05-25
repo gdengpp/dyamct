@@ -62,6 +62,9 @@ public class deptSerivceImpl implements deptService {
 		if (m.getDept_pid() == null || m.getDept_pid() == "") {
 			m.setDept_pid("0");
 		}
+		if (m.getDept_id().equals(m.getDept_pid())) {
+			m.setDept_pid("0");
+		}
 		return d.update_dept(m);
 	}
 
@@ -90,6 +93,11 @@ public class deptSerivceImpl implements deptService {
 	@Override
 	public Integer count() {
 		return d.getCount();
+	}
+
+	@Override
+	public dept findByDeptId(String dept_id) {
+		return d.queryByDeptIdOne(dept_id);
 	}
 
 }

@@ -23,8 +23,8 @@
                                             class="layui-icon">&#xe640;</i>删除
                                     </a>
                                 </c:if>
-                                 <a class="layui-btn layui-btn-primary resert_btn"><i
-										class="layui-icon">&#xe669;</i>刷新 </a>
+                                <a class="layui-btn layui-btn-primary resert_btn"><i class="layui-icon">&#xe669;</i>刷新
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                 //树形菜单--------------------------------------
 
                 $.ajax({
-                    url: "${pageContext.request.contextPath}/menu/find_menu",
+                    url: "${pageContext.request.contextPath}/menu/find_menu.do",
                     method: 'get',
                     async: false,//左侧树在表格之前加载且设置同步，防止页面加载布局出现竖线问题
                     success: function (data) {
@@ -223,14 +223,14 @@
                                 });
                         } else {
                             layer.msg(data.msg, {
-                            	offset: '25%',
+                                offset: '25%',
                                 icon: 5
                             });
                         }
                     },
                     error: function (res) {
                         layer.msg(res.msg, {
-                        offset: '25%',
+                            offset: '25%',
                             icon: 5
                         });
                     }
@@ -242,7 +242,7 @@
                     .render({
                         elem: '#menudatagrid',
                         id: 'menudatagrid',
-                        url: basurl + 'menu/find',
+                        url: basurl + 'menu/find.do',
                         limits: [10, 20, 30, 50, 100, 300, 600,
                             1000],
                         cols: [[
@@ -273,7 +273,15 @@
                             {
                                 field: 'menu_cls',
                                 title: '菜单图标',
-                                align: 'left'
+                                align: 'left',
+                                templet: function (d) {
+                                    if (d.menu_cls) {
+                                        return "<i class=\"layui-icon\">" + d.menu_cls + "</i>";
+                                    } else {
+                                        return "";
+                                    }
+
+                                }
                             },
                             {
                                 field: 'menu_order',
@@ -288,7 +296,7 @@
                                     if (d.menu_status == 0) {
                                         return "<span style='color:red'>禁用</span>";
                                     } else {
-                                        return "正常";
+                                        return "启用";
                                     }
                                 }
                             }, {
@@ -311,9 +319,9 @@
                 //监听提交
                 form.on('submit(menuSubmit)', function (data) {
                     var datas = data.field;
-                    var url = "${pageContext.request.contextPath}/menu/menu_add";
-                    if(datas.menu_id){
-                    	url = "${pageContext.request.contextPath}/menu/menu_edit";
+                    var url = "${pageContext.request.contextPath}/menu/menu_add.do";
+                    if (datas.menu_id) {
+                        url = "${pageContext.request.contextPath}/menu/menu_edit.do";
                     }
                     var add_edit = layer.load();
                     $.ajax({
@@ -321,11 +329,11 @@
                         method: 'post',
                         data: datas,
                         success: function (r) {
-                        	layer.close(add_edit);
+                            layer.close(add_edit);
                             if (r.success) {
-                                layer.msg(r.msg, { offset: '25%',icon: 6 });
+                                layer.msg(r.msg, { offset: '25%', icon: 6 });
                             } else {
-                                layer.msg(r.msg, { offset: '25%',icon: 5 });
+                                layer.msg(r.msg, { offset: '25%', icon: 5 });
                             }
                         }
                     });
@@ -333,70 +341,72 @@
                 });
                 //edit menu
                 $(".menu_edit").click(function () {
-                    
+
                     var data = table.checkStatus('menudatagrid').data;
-                    if(data.length!=1){
-                    	layer.msg("请选择一条数据修改",{offset: '25%',icon:5});
-                    	return false;
+                    if (data.length != 1) {
+                        layer.msg("请选择一条数据修改", { offset: '25%', icon: 5 });
+                        return false;
                     }
                     addAndEdit(data);
                 });
-                
-                 $(".resert_btn").click(function() {
-						location.reload();
-					});
-					
-					
+
+                $(".resert_btn").click(function () {
+                    location.reload();
+                });
+
+
                 //del menu
                 $(".menu_del").click(function () {
-                	var data = table.checkStatus('menudatagrid').data;
-                    if(data.length!=1){
-                    	layer.msg("请选择一条数据修改",{offset: '25%',icon:5});
-                    	return false;
+                    var data = table.checkStatus('menudatagrid').data;
+                    if (data.length != 1) {
+                        layer.msg("请选择一条数据修改", { offset: '25%', icon: 5 });
+                        return false;
                     }
-                     layer.confirm('您是否要确认执行删除？', {
-                     offset: '25%',
-		                    btn: ['执行', '取消'] //按钮      
-		                }, function () {
-		                var del =  layer.load();
-		                    $.ajax({
-		                        url: "${pageContext.request.contextPath}/menu/menu_del",
-		                        method: 'get',
-		                        data: {
-		                        	menu_id:data[0].menu_id
-		                        },
-		                        success: function (r) {
-		                        	layer.close(del);
-		                            if (r.success) {
-		                                layer.msg(r.msg, { offset: '25%',icon: 6 });
-		                            	location.reload();
-		                            } else {
-		                                layer.msg(r.msg, { offset: '25%',icon: 5 });
-		                            }
-		                        }
-		                    });
-		                });
-                
-                   
+                    layer.confirm('您是否要确认执行删除？', {
+                        offset: '25%',
+                        btn: ['执行', '取消'] //按钮      
+                    }, function () {
+                        var del = layer.load();
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/menu/menu_del.do",
+                            method: 'get',
+                            data: {
+                                menu_id: data[0].menu_id
+                            },
+                            success: function (r) {
+                                layer.close(del);
+                                if (r.success) {
+                                    layer.msg(r.msg, { offset: '25%', icon: 6 });
+                                    location.reload();
+                                } else {
+                                    layer.msg(r.msg, { offset: '25%', icon: 5 });
+                                }
+                            }
+                        });
+                    });
+
+
                 });
 
                 function addAndEdit(data) {
-                    if(data){
-                    	$("input[name='menu_status'][value="+ data[0].menu_status + "]").prop('checked', true);
-                    	form.val("menu_form", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
-							  "menu_id": data[0].menu_id // "name": "value"
-							  ,"menu_code": data[0].menu_code
-							  ,"menu_name": data[0].menu_name
-							  ,"menu_remark": data[0].menu_remark
-							  ,"menu_nav": data[0].menu_nav
-							  ,"menu_url": data[0].menu_url
-							  ,"menu_cls": data[0].menu_cls
-							  ,"menu_order": data[0].menu_order
-							});
+                	var str = "添加菜单";
+                    if (data) {
+                    	str = "修改菜单";
+                        $("input[name='menu_status'][value=" + data[0].menu_status + "]").prop('checked', true);
+                        form.val("menu_form", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                            "menu_id": data[0].menu_id // "name": "value"
+                            , "menu_code": data[0].menu_code
+                            , "menu_name": data[0].menu_name
+                            , "menu_remark": data[0].menu_remark
+                            , "menu_nav": data[0].menu_nav
+                            , "menu_url": data[0].menu_url
+                            , "menu_cls": data[0].menu_cls
+                            , "menu_order": data[0].menu_order
+                        });
                     }
                     layui.layer.open({
                         type: 1, //弹窗类型
-                        title: "添加菜单", //显示标题
+                        title: str, //显示标题
                         anim: 0,
                         shade: 0.3,
                         offset: '100px',
@@ -415,7 +425,7 @@
                                 // 选择器
                                 elem: '#tree',
                                 // 数据
-                                data: '${pageContext.request.contextPath}/menu/find_menu_tree',
+                                data: '${pageContext.request.contextPath}/menu/find_menu_tree.do',
                                 // 异步加载方式：get/post，默认get
                                 type: 'get',
                                 // 占位符
@@ -437,17 +447,17 @@
                                 },
                                 // 加载完成后的回调函数
                                 success: function (d) {
-	                                 if(data){
-	                                 	if(data[0].menu_pid=="0"){
-	                                 		 $("input[name=menu_pid]").val(data[0].menu_id);
-		                                 	 //选中节点，根据id筛选
-	                                    	treeSelect.checkNode('tree', data[0].menu_id);
-	                                 	}else{
-	                                 		 $("input[name=menu_pid]").val(data[0].menu_pid);
-		                                 	 //选中节点，根据id筛选
-	                                    	treeSelect.checkNode('tree', data[0].menu_pid);
-	                                 	}
-	                                 }
+                                    if (data) {
+                                        if (data[0].menu_pid == "0") {
+                                            $("input[name=menu_pid]").val(data[0].menu_id);
+                                            //选中节点，根据id筛选
+                                            treeSelect.checkNode('tree', data[0].menu_id);
+                                        } else {
+                                            $("input[name=menu_pid]").val(data[0].menu_pid);
+                                            //选中节点，根据id筛选
+                                            treeSelect.checkNode('tree', data[0].menu_pid);
+                                        }
+                                    }
                                     //选中节点，根据id筛选
                                     //treeSelect.checkNode('tree', 2);
                                     //                获取zTree对象，可以调用zTree方法

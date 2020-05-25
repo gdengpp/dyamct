@@ -21,8 +21,55 @@
 			</if>
 		</where>
 	</select>
-	
+
 	<select id="query" resultType="roles">
 		select * from common_role_info
 	</select>
+
+	<select id="queryMenuId" resultType="String">
+		select b.menu_id from common_role_info a LEFT JOIN common_role_menu b on
+		a.role_id = b.role_id left join common_menu_info c on
+		b.menu_id=c.menu_id where a.role_id=#{role_id} and c.menu_pid!="0"
+	</select>
+
+	<delete id="del">
+		delete from common_role_info where role_id=#{role_id}
+	</delete>
+
+	<insert id="add">
+		insert into
+		common_role_info(role_id,role_code,role_name,role_status,role_order,role_remark)
+		values(#{role_id},#{role_code},#{role_name},#{role_status},#{role_order},#{role_remark})
+	</insert>
+
+	<update id="upd">
+		update common_role_info
+		<set>
+			<if test="role_code!=null">
+				role_code = #{role_code},
+			</if>
+			<if test="role_name!=null">
+				role_name = #{role_name},
+			</if>
+			<if test="role_status!=null">
+				role_status=#{role_status},
+			</if>
+			<if test="role_order!=null">
+				role_order=#{role_order},
+			</if>
+			<if test="role_remark!=null">
+				role_remark=#{role_remark},
+			</if>
+		</set>
+		where role_id=#{role_id}
+	</update>
+
+	<insert id="authDao">
+		insert into common_role_menu(id,role_id,menu_id)
+		values(#{id},#{role_id},#{menu_id})
+	</insert>
+
+	<delete id="authDel">
+		delete from common_role_menu where role_id=#{role_id}
+	</delete>
 </mapper>

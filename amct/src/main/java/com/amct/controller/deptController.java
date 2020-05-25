@@ -37,6 +37,13 @@ public class deptController {
 		List<tree> list = d.findTree();
 		return list;
 	}
+	
+	//查询作为人员管理展示
+	@RequestMapping("/find_dept_one")
+	@ResponseBody
+	public dept find_dept_one(String dept_id) {
+		return d.findByDeptId(dept_id);
+	}
 
 	/**
 	 * 查询

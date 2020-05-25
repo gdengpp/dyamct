@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.amct.dao.deptDao;
 import com.amct.dao.userDao;
 import com.amct.dao.userLoginLogDao;
+import com.amct.entity.dept;
 import com.amct.entity.info;
+import com.amct.entity.user;
 import com.amct.service.userService;
 import com.amct.util.MD5Util;
 
@@ -23,6 +26,9 @@ public class userServiceImpl implements userService {
 
 	@Autowired
 	private userDao user;
+	
+	@Autowired
+	private  deptDao dp;
 
 	@Autowired
 	private userLoginLogDao userlog;
@@ -34,6 +40,11 @@ public class userServiceImpl implements userService {
 		info info = new info();
 		if (u == null) {
 			info.setMsg("用户不存在");
+			info.setSuccess(false);
+			return info;
+		}
+		if(u.getUser_status()==0){
+			info.setMsg("用户被禁用");
 			info.setSuccess(false);
 			return info;
 		}
@@ -65,7 +76,14 @@ public class userServiceImpl implements userService {
 		if (user_name != null) {
 			user_name = "%" + user_name + "%";
 		}
-		return user.queryAll(user_name, begin, limit);
+		 List<user> list = user.queryAll(user_name, begin, limit);
+		 for (int i = 0; i < list.size(); i++) {
+			 dept dept = dp.queryByDeptIdOne(list.get(i).getUser_dept_id());
+			 if(dept!=null){
+				 list.get(i).setDept_name(dept.getDept_name());
+			 }
+		}
+		 return list;
 	}
 
 	@Override
@@ -133,6 +151,7 @@ public class userServiceImpl implements userService {
 	@Override
 	public info remove(String user_id) {
 		Integer del = user.del(user_id);
+		user.del_user_role_user_id(user_id);
 		info info = new info();
 		if (del == 1) {
 			info.setMsg("删除成功");

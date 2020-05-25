@@ -38,6 +38,15 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/user/*" />
+			<mvc:exclude-mapping path="/captcha/*" />
+			<bean class="com.amct.intercepter.CustomeInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 	<!-- -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -39,7 +39,7 @@
 				placeholder="请输入验证码">
 			<div class="verify-code" id="msg">
 				<img id="captchaImg"
-					src="${pageContext.request.contextPath}/captcha/getCode"
+					src="${pageContext.request.contextPath}/captcha/getCode.do"
 					onclick="reloadCaptcha()" width="116" height="38">
 			</div>
 		</div>
@@ -49,7 +49,7 @@
 </body>
 <script type="text/javascript">
 	function reloadCaptcha() {
-		document.getElementById('captchaImg').src = '${pageContext.request.contextPath}/captcha/getCode?'
+		document.getElementById('captchaImg').src = '${pageContext.request.contextPath}/captcha/getCode.do?'
 				+ new Date();
 	}
 	layui.use([ 'layer', 'jquery' ], function() {
@@ -78,7 +78,7 @@
 				return false;
 			}
 			$.ajax({
-				url : '${pageContext.request.contextPath}/user/login',
+				url : '${pageContext.request.contextPath}/user/login.do',
 				method : 'get',
 				data : {
 					account : account,

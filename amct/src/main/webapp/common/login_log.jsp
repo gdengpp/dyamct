@@ -49,7 +49,7 @@
 		table.render({
 			elem : '#logdatagrid',
 			id : 'logdatagrid',
-			url : basurl + 'log/getLogAll',
+			url : basurl + 'log/getLogAll.do',
 			limits : [ 10, 20, 30, 50, 100, 300, 600, 1000 ],
 			cols : [ [
 					{
@@ -106,7 +106,7 @@
 			}, function() {
 				layer.load();
 				$.ajax({
-					url : basurl + 'log/removelog',
+					url : basurl + 'log/removelog.do',
 					method : 'get',
 					success : function(r) {
 						layer.closeAll();

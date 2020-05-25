@@ -103,7 +103,7 @@
                 //树形菜单--------------------------------------
 
                 $.ajax({
-                    url: "${pageContext.request.contextPath}/dept/find_dept",
+                    url: "${pageContext.request.contextPath}/dept/find_dept.do",
                     method: 'get',
                     async: false,//左侧树在表格之前加载且设置同步，防止页面加载布局出现竖线问题
                     success: function (data) {
@@ -209,7 +209,7 @@
                     .render({
                         elem: '#deptdatagrid',
                         id: 'deptdatagrid',
-                        url: basurl + 'dept/find',
+                        url: basurl + 'dept/find.do',
                         limits: [10, 20, 30, 50, 100, 300, 600,
                             1000],
                         cols: [[
@@ -252,9 +252,9 @@
                 //监听提交
                 form.on('submit(deptSubmit)', function (data) {
                     var datas = data.field;
-                    var url = "${pageContext.request.contextPath}/dept/dept_add";
+                    var url = "${pageContext.request.contextPath}/dept/dept_add.do";
                     if(datas.dept_id){
-                    	url = "${pageContext.request.contextPath}/dept/dept_edit";
+                    	url = "${pageContext.request.contextPath}/dept/dept_edit.do";
                     }
                     var add_edit = layer.load();
                     $.ajax({
@@ -298,7 +298,7 @@
 		                }, function () {
 		                var del =  layer.load();
 		                    $.ajax({
-		                        url: "${pageContext.request.contextPath}/dept/dept_del",
+		                        url: "${pageContext.request.contextPath}/dept/dept_del.do",
 		                        method: 'get',
 		                        data: {
 		                        	dept_id:data[0].dept_id
@@ -319,7 +319,9 @@
                 });
 
                 function addAndEdit(data) {
+                	var str = "添加菜单";
                     if(data){
+                    	str = "修改菜单";
                     	form.val("dept_form", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
 							  "dept_id": data[0].dept_id // "name": "value"
 							  ,"dept_code": data[0].dept_code
@@ -330,7 +332,7 @@
                     }
                     layui.layer.open({
                         type: 1, //弹窗类型
-                        title: "添加菜单", //显示标题
+                        title: str, //显示标题
                         anim: 0,
                         shade: 0.3,
                         offset: '100px',
@@ -349,7 +351,7 @@
                                 // 选择器
                                 elem: '#tree',
                                 // 数据
-                                data: '${pageContext.request.contextPath}/dept/find_dept_tree',
+                                data: '${pageContext.request.contextPath}/dept/find_dept_tree.do',
                                 // 异步加载方式：get/post，默认get
                                 type: 'get',
                                 // 占位符

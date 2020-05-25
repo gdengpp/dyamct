@@ -87,7 +87,7 @@
 			frame.css("height", frameheight);
 			//加载顶部菜单===============================================
 			$.ajax({
-				url : "${pageContext.request.contextPath}/menu/find_menu",
+				url : "${pageContext.request.contextPath}/menu/find_menu.do",
 				method : "get",
 				success : function(menu) {
 					var headHtml = "";
@@ -133,43 +133,50 @@
 				btn : [ '确定', '取消' ]
 			//按钮      
 			}, function() {
-				location.href="${pageContext.request.contextPath}/user/loginout";
+				location.href="${pageContext.request.contextPath}/user/loginout.do";
 			});
 		});
 	});
 
 	function appendhtml(data, htm) {
 		var headHtml = "";
-		var icon = "";
 		for (var i = 0; i < data.length; i++) {
-			if (data[i].menu_cls) {
-				icon = data[i].menu_cls;
-			}
 			if (data[i].child.length == 0) {
+				
+				var icon_top="";
+					if(data[i].menu_cls){
+						icon_top = data[i].menu_cls;
+					}
+				
 				headHtml += "<li class='layui-nav-item'>"
 						+ "<a href='javascript:;' onclick='" + htm + "(\""+data[i].menu_status + "\",\""
 						+ data[i].menu_nav + "\",\"" + data[i].menu_url
 						+ "\",\"" + data[i].menu_id + "\")'>"
-						+ "<i class=\"layui-icon\">" + icon + "</i>"
+						+ "<i class=\"layui-icon\">" + icon_top + "</i>&nbsp;&nbsp;"
 						+ data[i].menu_name + "</a>";
 				headHtml += "</li>";
 			} else {
+				var icon_top="";
+					if(data[i].child[b].menu_cls){
+						icon_top = data[i].menu_cls;
+					}
+				
 				headHtml += "<li class='layui-nav-item'><a href='javascript:void(0);'>"
 						+ "<i class=\"layui-icon\">"
-						+ icon
-						+ "</i>"
+						+ icon_top
+						+ "</i>&nbsp;&nbsp;"
 						+ data[i].menu_name + "</a>";
 				headHtml += "<dl class='layui-nav-child'>";
 				for (var b = 0; b < data[i].child.length; b++) {
-					var iconchild = "";
-					if (data[i].child[b].menu_cls) {
-						iconchild = data[i].child[b].menu_cls;
+					var icon="";
+					if(data[i].child[b].menu_cls){
+						icon = data[i].child[b].menu_cls;
 					}
 					headHtml += "<dd><a href='javascript:;' onclick='" + htm
 							+ "(\""+ data[i].menu_status + "\",\"" + data[i].child[b].menu_nav + "\",\""
 							+ data[i].child[b].menu_url + "\",\""
 							+ data[i].child[b].menu_id + "\")'>"
-							+ "<i class=\"layui-icon\">" + iconchild + "</i>"
+							+ "<i class=\"layui-icon\">" + icon + "</i>&nbsp;&nbsp;"
 							+ data[i].child[b].menu_name + "</a></dd>";
 				}
 				headHtml += "</dl></li>";

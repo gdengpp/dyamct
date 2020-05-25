@@ -66,6 +66,9 @@ public class menuSerivceImpl implements menuService {
 		if (m.getMenu_pid() == null || m.getMenu_pid() == "") {
 			m.setMenu_pid("0");
 		}
+		if(m.getMenu_id().equals(m.getMenu_pid())){
+			m.setMenu_pid("0");
+		}
 		return mu.update_menu(m);
 	}
 

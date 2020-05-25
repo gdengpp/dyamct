@@ -52,6 +52,6 @@
 	<servlet-mapping>
 		<servlet-name>mvc</servlet-name>
 		<!-- 引起静态资源的拦截 mvc 的配置解决 -->
-		<url-pattern>/</url-pattern>
+		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 </web-app>
