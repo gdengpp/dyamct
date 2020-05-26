@@ -90,6 +90,10 @@
 				url : "${pageContext.request.contextPath}/menu/find_menu.do",
 				method : "get",
 				success : function(menu) {
+					if(menu==0){
+						window.location.href="login.jsp";
+						return false;
+					}
 					var headHtml = "";
 					for (var i = 0; i < menu.length; i++) {
 						headHtml += "<li class='layui-nav-item'>"

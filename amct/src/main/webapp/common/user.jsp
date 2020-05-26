@@ -153,6 +153,11 @@
 						var $ = layui.$;
 						form.render();
 						element.init();
+						$(function(){
+							if(${user==null}){
+								layer.msg("登录过期，请刷新页面重新登录",{icon:5});
+							}
+						});
 						//加载数据表格
 						table
 								.render({
@@ -272,6 +277,25 @@
 								});
 								return false;
 							}
+							var d = "\"${user.login_account}\"";
+							console.log(d)
+							console.log(d!='"'+data[0].login_account+'"')
+							console.log(${user.login_account!=data[0].login_account },"========")
+							
+							console.log("\"${user.login_account}\""!='"'+data[0].login_account+'"')
+							
+							console.log('"'+data[0].login_account+'"' ,"========")
+							
+							if (${user.role.role_code!='sysadmin' }) {
+								if("\"${user.login_account}\""!='"'+data[0].login_account+'"'){
+								layer.msg("不是超级管理员，不可修改其他的信息", {
+									icon : 5,
+									offset : '25%',
+								});
+								return false;
+							}
+							}
+						
 							addAndEdit(data);
 						});
 

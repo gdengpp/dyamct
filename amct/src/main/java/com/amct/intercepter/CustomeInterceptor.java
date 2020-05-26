@@ -15,11 +15,12 @@ public class CustomeInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler) throws Exception {
 		user u = (user) request.getSession().getAttribute("user");
 		if (u == null) {
-			String path = request.getContextPath();
-			String basePath = request.getScheme() + "://"
-					+ request.getServerName() + ":" + request.getServerPort()
-					+ path;
-			response.sendRedirect(basePath + "/login.jsp");
+			String requestType = request.getHeader("X-Requested-With");
+			if ("XMLHttpRequest".equals(requestType)) {
+				response.getWriter().write("0");
+			} else {
+				response.sendRedirect(request.getContextPath() + "/login.jsp");
+			}
 			return false;
 		}
 		return true;

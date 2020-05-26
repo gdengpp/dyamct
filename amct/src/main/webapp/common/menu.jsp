@@ -116,6 +116,8 @@
 </div>
 
 <script>
+	
+
     var menu_data;
     var basurl = '${pageContext.request.contextPath}/';
 
@@ -134,7 +136,11 @@
                 form.render();
                 element.init();
                 //树形菜单--------------------------------------
-
+$(function(){
+		if(${user==null}){
+			layer.msg("登录过期，请刷新页面重新登录",{icon:5});
+		}
+	});
                 $.ajax({
                     url: "${pageContext.request.contextPath}/menu/find_menu.do",
                     method: 'get',

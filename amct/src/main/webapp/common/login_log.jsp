@@ -35,6 +35,8 @@
 	</div>
 </div>
 <script>
+
+
 	var basurl = '${pageContext.request.contextPath}/';
 	layui.use([ 'table', 'form', 'tree', 'layer', 'jquery', 'laydate',
 			'element', 'tree' ], function() {
@@ -45,6 +47,11 @@
 		var $ = layui.$;
 		form.render();
 		element.init();
+		$(function(){
+		if(${user==null}){
+			layer.msg("登录过期，请刷新页面重新登录",{icon:5});
+		}
+	});
 		//加载数据表格
 		table.render({
 			elem : '#logdatagrid',

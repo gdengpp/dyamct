@@ -95,6 +95,8 @@
 	</form>
 </div>
 <script>
+
+
 	var basurl = '${pageContext.request.contextPath}/';
 	layui
 			.use(
@@ -109,6 +111,11 @@
 						var $ = layui.$;
 						form.render();
 						element.init();
+						$(function(){
+		if(${user==null}){
+			layer.msg("登录过期，请刷新页面重新登录",{icon:5});
+		}
+	});
 						//树形菜单--------------------------------------
 						$
 								.ajax({
@@ -262,6 +269,12 @@
 								});
 								return false;
 							}
+							if (${user.role.role_code!='sysadmin' }) {
+								layer.msg("不是超级管理员，不可修改角色信息", {
+									icon : 5
+								});
+								return false;
+							}
 							addAndEdit(data);
 						});
 
@@ -327,8 +340,8 @@
 										});
 
 						//授权
-						
-					$(".role_auth").click(function() {
+
+						$(".role_auth").click(function() {
 							var topData = table.checkStatus("roledatagrid");
 							var data = topData.data;
 							if (data.length == 0) {
@@ -345,6 +358,12 @@
 								});
 								return false;
 							}
+							if (${user.role.role_code!='sysadmin' }) {
+								layer.msg("不是超级管理员，不可授权", {
+									icon : 5
+								});
+								return false;
+							}
 							if (data[0].role_status == 0) {
 								layer.msg("角色异常，不可授权", {
 									icon : 5
@@ -352,9 +371,8 @@
 								return false;
 							}
 							var tree_id = [];
-							treeDataId(tree_id,treeData);
+							treeDataId(tree_id, treeData);
 							layer.load();
-							
 
 							$.ajax({
 								url : basurl + 'role/auth.do',
@@ -364,12 +382,16 @@
 									menu_id : JSON.stringify(tree_id),
 								},
 								success : function(r) {
-								layer.closeAll();
-								if(r.success){
-									layer.msg(r.msg,{icon:6});
-								}else{
-									layer.msg(r.msg,{icon:5});
-								}
+									layer.closeAll();
+									if (r.success) {
+										layer.msg(r.msg, {
+											icon : 6
+										});
+									} else {
+										layer.msg(r.msg, {
+											icon : 5
+										});
+									}
 								},
 								error : function() {
 									layer.msg("授权失败", {

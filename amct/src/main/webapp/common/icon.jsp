@@ -101,6 +101,9 @@
 
 </body>
 <script type="text/javascript">
+
+	
+
 	//回车搜索
 	$(document)
 			.keyup(
@@ -140,7 +143,11 @@
 		var $ = layui.$;
 		form.render();
 		element.init();
-
+$(function(){
+		if(${user==null}){
+			layer.msg("登录过期，请刷新页面重新登录",{icon:5});
+		}
+	});
 		table.render({
 			elem : '#icondatagrid',
 			id : 'icondatagrid',
