@@ -36,17 +36,16 @@
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
-							<a href="javascript:;">基本资料</a>
+							<a href="javascript:;" class="note"><i class="layui-icon">&#xe66e;</i>&nbsp;&nbsp;便签</a>
 						</dd>
 						<dd>
-							<a href="javascript:;">修改密码</a>
+							<a href="javascript:;" class="set"><i class="layui-icon">&#xe716;</i>&nbsp;&nbsp;设置</a>
 						</dd>
 						<dd>
-							<a href="javascript:;" class="loginout">退出</a>
+							<a href="javascript:;" class="loginout"><i class="layui-icon">&#xe702;</i>&nbsp;&nbsp;退出</a>
 						</dd>
 					</dl></li>
 			</ul>
-
 		</div>
 
 		<div class="layui-side layui-bg-black">
@@ -95,7 +94,8 @@
 						return false;
 					}
 					var headHtml = "";
-					for (var i = 0; i < menu.length; i++) {
+					
+					for (var i = menu.length-1; i >= 0; i--) {
 						headHtml += "<li class='layui-nav-item'>"
 								+ "<a href='javascript:;'>" + menu[i].menu_name
 								+ "</a>";
@@ -131,6 +131,17 @@
 			//头部菜单结束================================================
 
 		});
+		
+		
+		$(".note").click(function(){
+			layer.msg("便签",{icon:6});
+		});
+		
+		$(".set").click(function(){
+			layer.msg("设置",{icon:6});
+		});
+		
+		
 		
 		$(".loginout").click(function(){
 			layer.confirm('是否退出登录？', {

@@ -10,7 +10,6 @@
 	<div class="bgWhite">
 		<div class="bgWhitePadding">
 			<div class="layui-fluid">
-				<div class="layui-row layui-col-space10">
 					<div class="layui-col-md12">
 						<div class="layui-form">
 							<div class="layui-inline">
@@ -44,7 +43,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
 	<div id="iconAdd" style="display:none;padding:30px;">
 		<div class="layui-row">
@@ -101,8 +99,6 @@
 
 </body>
 <script type="text/javascript">
-
-	
 
 	//回车搜索
 	$(document)

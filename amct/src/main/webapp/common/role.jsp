@@ -364,6 +364,12 @@
 								});
 								return false;
 							}
+							if (${user.role.role_code=='sysadmin' }) {
+								layer.msg("超级管理员角色，无需授权", {
+									icon : 5
+								});
+								return false;
+							}
 							if (data[0].role_status == 0) {
 								layer.msg("角色异常，不可授权", {
 									icon : 5
