@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50556
 File Encoding         : 65001
 
-Date: 2020-05-26 19:33:08
+Date: 2020-05-29 09:39:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -119,6 +119,7 @@ INSERT INTO `common_icon_info` VALUES ('771a153c-32e5-4486-afc5-508855981976', '
 INSERT INTO `common_icon_info` VALUES ('7c4a4aea-3898-4a77-81a7-a317b7a12425', 'layui-icon layui-icon-circle', '单选框-候选', '&#xe63f;', 'layui-icon-circle');
 INSERT INTO `common_icon_info` VALUES ('7e045436-4556-4f77-8069-595b8e9dc04d', 'layui-icon layui-icon-upload-circle', '上传-圆圈', '&#xe62f;', 'layui-icon-upload-circle');
 INSERT INTO `common_icon_info` VALUES ('7f0cfbd5-cf24-41bf-93c2-bfde70ba4a06', 'layui-icon layui-icon-chart-screen', '图标 报表 屏幕', '&#xe629;', 'layui-icon-chart-screen');
+INSERT INTO `common_icon_info` VALUES ('80f26cb9-6cee-4bd5-9d67-92827c11d6f8', 'layui-icon layui-icon-logout', '退出/注销', '&#xe682;', 'layui-icon-logout');
 INSERT INTO `common_icon_info` VALUES ('850a2eaf-5873-42c6-b131-8addfcc9cfdd', 'layui-icon layui-icon-fonts-del', '删除线', '&#xe64f;', 'layui-icon-fonts-del');
 INSERT INTO `common_icon_info` VALUES ('88186bcf-9f77-4ff9-8133-82901340b14b', 'layui-icon layui-icon-male', '男', '&#xe662;', 'layui-icon-male');
 INSERT INTO `common_icon_info` VALUES ('8a9bc945-cb98-4a4c-8bce-809e65bfc8d8', 'layui-icon layui-icon-unlink', '删除链接', '&#xe64d;', 'layui-icon-unlink');
@@ -214,12 +215,11 @@ CREATE TABLE `common_menu_info` (
 -- ----------------------------
 INSERT INTO `common_menu_info` VALUES ('1', 'cols', '控制台', '控制台', '控制台', 'common/console.jsp', '&#xe665;', '1', '0', '1');
 INSERT INTO `common_menu_info` VALUES ('2', 'menu', '菜单管理', '控制台>菜单管理', '菜单管理', 'common/menu.jsp', '&#xe656;', '11', '1', '1');
-INSERT INTO `common_menu_info` VALUES ('3', '', '人员管理', '控制台>用户管理', '用户管理', 'common/user.jsp', '&#xe770;', '12', '1', '1');
-INSERT INTO `common_menu_info` VALUES ('4', '', '角色管理', '控制台>角色管理', '角色管理', 'common/role.jsp', '&#xe66f;', '13', '1', '1');
+INSERT INTO `common_menu_info` VALUES ('3', 'user', '人员管理', '控制台>用户管理', '用户管理', 'common/user.jsp', '&#xe770;', '12', '1', '1');
+INSERT INTO `common_menu_info` VALUES ('4', 'role', '角色管理', '控制台>角色管理', '角色管理', 'common/role.jsp', '&#xe66f;', '13', '1', '1');
 INSERT INTO `common_menu_info` VALUES ('5', 'dept', '部门管理', '', '', 'common/dept.jsp', '&#xe630;', '14', '1', '1');
-INSERT INTO `common_menu_info` VALUES ('6', 'dict', '字典管理', '', '', 'common/dict.jsp', '&#xe6b2;', '16', '1', '1');
-INSERT INTO `common_menu_info` VALUES ('7', '', '登录日志', '', '', 'common/login_log.jsp', '&#xe60e;', '15', '1', '1');
-INSERT INTO `common_menu_info` VALUES ('8', '', '图标库', '', '', 'common/icon.jsp', '&#xe614;', '17', '1', '1');
+INSERT INTO `common_menu_info` VALUES ('7', 'log', '登录日志', '', '', 'common/login_log.jsp', '&#xe60e;', '15', '1', '1');
+INSERT INTO `common_menu_info` VALUES ('8', 'tb', '图标库', '', '', 'common/icon.jsp', '&#xe650;', '17', '1', '1');
 
 -- ----------------------------
 -- Table structure for common_role_info
@@ -256,18 +256,17 @@ CREATE TABLE `common_role_menu` (
 -- Records of common_role_menu
 -- ----------------------------
 INSERT INTO `common_role_menu` VALUES ('10769146-c9a1-4d1a-a562-40e42de088ed', '2', '3');
-INSERT INTO `common_role_menu` VALUES ('184c3849-1631-48b9-a6f2-d314344c875a', '1', '2');
-INSERT INTO `common_role_menu` VALUES ('188cfbca-f638-43f5-bfd4-db2aedac9f97', '1', '4');
-INSERT INTO `common_role_menu` VALUES ('1a734f24-e5fc-4188-8bf5-79d0bf75a2f4', '1', '8');
-INSERT INTO `common_role_menu` VALUES ('552d11ae-2e62-4058-b08d-fe8cf7974ade', '1', '7');
-INSERT INTO `common_role_menu` VALUES ('64c524a4-60d1-4422-a688-e8bc141fa5ac', '1', '3');
-INSERT INTO `common_role_menu` VALUES ('7e96cb37-a222-4d1e-8782-5e719fdacb63', '1', '1');
+INSERT INTO `common_role_menu` VALUES ('2f2952aa-a52f-4d4f-8c52-3c8ad0bf66d9', '1', '4');
+INSERT INTO `common_role_menu` VALUES ('30fcaef9-99aa-4669-beae-19f2688f0e55', '1', '7');
+INSERT INTO `common_role_menu` VALUES ('40b8a434-a1f1-4859-8b8e-eba98258bcf7', '1', '5');
+INSERT INTO `common_role_menu` VALUES ('51e6a30e-a831-4e51-8f6d-07212963d4f2', '1', '3');
+INSERT INTO `common_role_menu` VALUES ('9b724a4d-48ba-48ce-8226-df04d9f5906d', '1', '8');
+INSERT INTO `common_role_menu` VALUES ('ac9e2265-167f-4a21-bdd3-23814561be14', '1', '2');
 INSERT INTO `common_role_menu` VALUES ('ba616b75-31a1-4ca9-89c6-a6ec9a39809b', '2', '1');
 INSERT INTO `common_role_menu` VALUES ('bc012c11-47ac-4c49-9286-912eb69c2996', '2', '4');
-INSERT INTO `common_role_menu` VALUES ('c08f607e-7e5f-434a-afa4-dfb69b3c1371', '1', '6');
 INSERT INTO `common_role_menu` VALUES ('c858c658-a0f3-4268-b5ea-585a86184c4b', '2', '2');
 INSERT INTO `common_role_menu` VALUES ('d347c74f-344c-4331-9514-c9209a1fc994', '2', '5');
-INSERT INTO `common_role_menu` VALUES ('f1a6308a-473a-45fd-b542-e55228216af8', '1', '5');
+INSERT INTO `common_role_menu` VALUES ('f6859018-c7f7-444f-a704-962b4897a167', '1', '1');
 
 -- ----------------------------
 -- Table structure for common_user_info
@@ -302,7 +301,7 @@ CREATE TABLE `common_user_login_log` (
   `login_account` varchar(64) DEFAULT NULL,
   `login_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of common_user_login_log
@@ -341,6 +340,13 @@ INSERT INTO `common_user_login_log` VALUES ('31', 'admin', '2020-05-26 16:01:16'
 INSERT INTO `common_user_login_log` VALUES ('32', 'admin', '2020-05-26 16:08:40');
 INSERT INTO `common_user_login_log` VALUES ('33', 'admin', '2020-05-26 16:12:53');
 INSERT INTO `common_user_login_log` VALUES ('34', 'admin', '2020-05-26 16:14:26');
+INSERT INTO `common_user_login_log` VALUES ('35', 'admin', '2020-05-27 09:28:59');
+INSERT INTO `common_user_login_log` VALUES ('36', 'admin', '2020-05-27 09:39:06');
+INSERT INTO `common_user_login_log` VALUES ('37', 'dengpp', '2020-05-27 09:39:38');
+INSERT INTO `common_user_login_log` VALUES ('38', 'admin', '2020-05-27 09:40:18');
+INSERT INTO `common_user_login_log` VALUES ('39', 'admin', '2020-05-27 10:05:48');
+INSERT INTO `common_user_login_log` VALUES ('40', 'admin', '2020-05-27 10:15:39');
+INSERT INTO `common_user_login_log` VALUES ('41', 'admin', '2020-05-27 14:03:22');
 
 -- ----------------------------
 -- Table structure for common_user_role
