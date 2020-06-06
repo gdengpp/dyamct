@@ -5,8 +5,8 @@
 	<!-- 登录成功后加入登录日志表中 -->
 	<insert id="insertUserLoginLog">
 		insert into
-		common_user_login_log(login_account,login_time)
-		value(#{login_account},#{login_time})
+		common_user_login_log(login_account,login_time,login_address)
+		value(#{login_account},#{login_time},#{login_address})
 	</insert>
 
 	<select id="query" resultType="log">

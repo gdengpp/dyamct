@@ -2,6 +2,7 @@ package com.amct.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import com.amct.entity.user;
 public interface userService {
 
 	//用户登录
-	info findLogin(String login_account,String password,HttpSession session);
+	info findLogin(String login_account,String password,HttpSession session,HttpServletRequest req);
 	
 	List<user> findAll(String user_name,Integer page,Integer limit);
 	

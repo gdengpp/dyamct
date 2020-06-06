@@ -72,6 +72,10 @@
 							return new Date(d.login_time)
 									.Format("yyyy-MM-dd hh:mm:ss");
 						}
+					},{
+						field : 'login_address',
+						title : '登录地址',
+						align : 'left'
 					} ] ],
 			page : true,
 			done : function(res, curr, count) {

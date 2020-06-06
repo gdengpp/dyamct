@@ -2,6 +2,7 @@ package com.amct.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class userController {
 	@ResponseBody
 	@RequestMapping("/login")
 	public info login(String account, String password, String captcha,
-			HttpSession session) {
+			HttpSession session, HttpServletRequest req) {
 		info info = new info();
 
 		String code = (String) session.getAttribute("code");
@@ -40,9 +41,7 @@ public class userController {
 			info.setSuccess(false);
 			return info;
 		}
-
-		return us.findLogin(account, password, session);
-
+		return us.findLogin(account, password, session, req);
 	}
 
 	@RequestMapping("/loginout")

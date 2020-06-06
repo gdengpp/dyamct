@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50556
-Source Host           : localhost:3306
+Source Server         : localhost_3307
+Source Server Version : 50550
+Source Host           : localhost:3307
 Source Database       : amct
 
 Target Server Type    : MYSQL
-Target Server Version : 50556
+Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2020-05-29 09:39:31
+Date: 2020-06-06 16:54:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -300,53 +300,13 @@ CREATE TABLE `common_user_login_log` (
   `id` int(64) NOT NULL AUTO_INCREMENT,
   `login_account` varchar(64) DEFAULT NULL,
   `login_time` datetime DEFAULT NULL,
+  `login_address` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of common_user_login_log
 -- ----------------------------
-INSERT INTO `common_user_login_log` VALUES ('1', 'admin', '2020-05-22 15:54:38');
-INSERT INTO `common_user_login_log` VALUES ('2', 'admin', '2020-05-22 16:57:18');
-INSERT INTO `common_user_login_log` VALUES ('3', 'admin', '2020-05-22 17:05:06');
-INSERT INTO `common_user_login_log` VALUES ('4', 'admin', '2020-05-22 17:19:39');
-INSERT INTO `common_user_login_log` VALUES ('5', 'dengpp', '2020-05-22 17:25:01');
-INSERT INTO `common_user_login_log` VALUES ('6', 'dengpp', '2020-05-22 17:27:45');
-INSERT INTO `common_user_login_log` VALUES ('7', 'admin', '2020-05-22 17:28:02');
-INSERT INTO `common_user_login_log` VALUES ('8', 'admin', '2020-05-23 16:25:40');
-INSERT INTO `common_user_login_log` VALUES ('9', 'admin', '2020-05-23 16:28:47');
-INSERT INTO `common_user_login_log` VALUES ('10', 'admin', '2020-05-23 16:45:37');
-INSERT INTO `common_user_login_log` VALUES ('11', 'admin', '2020-05-23 16:47:14');
-INSERT INTO `common_user_login_log` VALUES ('12', 'admin', '2020-05-23 20:48:02');
-INSERT INTO `common_user_login_log` VALUES ('13', 'admin', '2020-05-23 21:28:44');
-INSERT INTO `common_user_login_log` VALUES ('14', 'admin', '2020-05-23 23:28:33');
-INSERT INTO `common_user_login_log` VALUES ('15', 'admin', '2020-05-23 23:29:35');
-INSERT INTO `common_user_login_log` VALUES ('16', 'admin', '2020-05-24 21:03:28');
-INSERT INTO `common_user_login_log` VALUES ('17', 'admin', '2020-05-24 21:27:59');
-INSERT INTO `common_user_login_log` VALUES ('18', 'admin', '2020-05-24 21:43:16');
-INSERT INTO `common_user_login_log` VALUES ('19', 'admin', '2020-05-24 21:47:02');
-INSERT INTO `common_user_login_log` VALUES ('20', 'admin', '2020-05-24 21:58:36');
-INSERT INTO `common_user_login_log` VALUES ('21', 'admin', '2020-05-24 22:17:54');
-INSERT INTO `common_user_login_log` VALUES ('22', 'admin', '2020-05-24 22:25:31');
-INSERT INTO `common_user_login_log` VALUES ('23', 'admin', '2020-05-24 22:30:11');
-INSERT INTO `common_user_login_log` VALUES ('24', 'dengpp', '2020-05-24 22:32:05');
-INSERT INTO `common_user_login_log` VALUES ('25', 'admin', '2020-05-25 09:19:01');
-INSERT INTO `common_user_login_log` VALUES ('26', 'admin', '2020-05-25 13:40:27');
-INSERT INTO `common_user_login_log` VALUES ('27', 'dengpp', '2020-05-25 14:34:28');
-INSERT INTO `common_user_login_log` VALUES ('28', 'dengpp', '2020-05-26 09:21:54');
-INSERT INTO `common_user_login_log` VALUES ('29', 'admin', '2020-05-26 09:42:40');
-INSERT INTO `common_user_login_log` VALUES ('30', 'admin', '2020-05-26 15:58:57');
-INSERT INTO `common_user_login_log` VALUES ('31', 'admin', '2020-05-26 16:01:16');
-INSERT INTO `common_user_login_log` VALUES ('32', 'admin', '2020-05-26 16:08:40');
-INSERT INTO `common_user_login_log` VALUES ('33', 'admin', '2020-05-26 16:12:53');
-INSERT INTO `common_user_login_log` VALUES ('34', 'admin', '2020-05-26 16:14:26');
-INSERT INTO `common_user_login_log` VALUES ('35', 'admin', '2020-05-27 09:28:59');
-INSERT INTO `common_user_login_log` VALUES ('36', 'admin', '2020-05-27 09:39:06');
-INSERT INTO `common_user_login_log` VALUES ('37', 'dengpp', '2020-05-27 09:39:38');
-INSERT INTO `common_user_login_log` VALUES ('38', 'admin', '2020-05-27 09:40:18');
-INSERT INTO `common_user_login_log` VALUES ('39', 'admin', '2020-05-27 10:05:48');
-INSERT INTO `common_user_login_log` VALUES ('40', 'admin', '2020-05-27 10:15:39');
-INSERT INTO `common_user_login_log` VALUES ('41', 'admin', '2020-05-27 14:03:22');
 
 -- ----------------------------
 -- Table structure for common_user_role

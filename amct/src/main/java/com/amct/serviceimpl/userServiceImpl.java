@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -19,6 +20,7 @@ import com.amct.entity.info;
 import com.amct.entity.user;
 import com.amct.service.userService;
 import com.amct.util.MD5Util;
+import com.amct.util.ipUtils;
 
 @Service
 @Transactional
@@ -35,7 +37,7 @@ public class userServiceImpl implements userService {
 
 	@Override
 	public info findLogin(String login_account, String password,
-			HttpSession session) {
+			HttpSession session,HttpServletRequest req) {
 		com.amct.entity.user u = user.queryBylogin_account(login_account);
 		info info = new info();
 		if (u == null) {
@@ -56,7 +58,8 @@ public class userServiceImpl implements userService {
 			info.setSuccess(false);
 			return info;
 		}
-		Integer log = userlog.insertUserLoginLog(login_account, new Date());
+		String ip = ipUtils.getIp(req);
+		Integer log = userlog.insertUserLoginLog(login_account, new Date(),ip);
 		if (log == 1) {
 			info.setMsg("登录成功");
 			info.setSuccess(true);

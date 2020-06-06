@@ -3,6 +3,8 @@ package com.amct.serviceimpl;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.amct.dao.userLoginLogDao;
 import com.amct.entity.log;
 import com.amct.service.userLoginLogService;
+import com.amct.util.ipUtils;
 
 @Service
 @Transactional
@@ -19,8 +22,9 @@ public class userLoginLogServiceImpl implements userLoginLogService {
 	private userLoginLogDao userlog;
 
 	@Override
-	public Integer addUserLoginLog(String login_account) {
-		return userlog.insertUserLoginLog(login_account, new Date());
+	public Integer addUserLoginLog(String login_account,HttpServletRequest req) {
+		String ip = ipUtils.getIp(req);
+		return userlog.insertUserLoginLog(login_account, new Date(),ip);
 	}
 
 	@Override

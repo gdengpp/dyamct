@@ -11,12 +11,13 @@ public interface userLoginLogDao {
 
 	// 登录成功后加入登录日志表中
 	Integer insertUserLoginLog(@Param("login_account") String login_account,
-			@Param("login_time") Date login_time);
+			@Param("login_time") Date login_time,
+			@Param("login_address") String login_address);
 
 	List<log> query(@Param("login_account") String login_account,
 			@Param("begin") Integer begin, @Param("end") Integer end);
 
 	Integer count(@Param("login_account") String login_account);
-	
+
 	Integer del();
 }
