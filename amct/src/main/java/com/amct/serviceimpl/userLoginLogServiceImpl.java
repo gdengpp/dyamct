@@ -15,7 +15,6 @@ import com.amct.service.userLoginLogService;
 import com.amct.util.ipUtils;
 
 @Service
-@Transactional
 public class userLoginLogServiceImpl implements userLoginLogService {
 
 	@Autowired

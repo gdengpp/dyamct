@@ -256,6 +256,7 @@
 						});
 						//新增
 						$(".role_add").click(function() {
+							$("input[name='role_code']").removeAttr("readonly");
 							addAndEdit();
 						});
 
@@ -275,6 +276,7 @@
 								});
 								return false;
 							}
+							$("input[name='role_code']").attr("readonly","readonly");
 							addAndEdit(data);
 						});
 
@@ -364,7 +366,7 @@
 								});
 								return false;
 							}
-							if (${user.role.role_code=='sysadmin' }) {
+							if (data[0].role_code=='sysadmin') {
 								layer.msg("超级管理员角色，无需授权", {
 									icon : 5
 								});
@@ -421,7 +423,7 @@
 									"role_code" : data[0].role_code,
 									"role_name" : data[0].role_name,
 									"role_remark" : data[0].role_remark,
-									"role_order" : data[0].role_order,
+									"role_order" : data[0].role_order,		
 									"role_status" : data[0].role_status
 								});
 							}
@@ -440,7 +442,7 @@
 									return false;
 								},
 								success : function() {
-
+									
 								}
 							});
 						}
@@ -453,6 +455,10 @@
 											var url = "${pageContext.request.contextPath}/role/role_add.do";
 											if (datas.role_id) {
 												url = "${pageContext.request.contextPath}/role/role_edit.do";
+												if(datas.role_code == "sysadmin" && datas.role_status==0){
+													layer.msg("admin用户无法禁用",{icon:5,offset : '25%',});
+													return false;
+												}
 											}
 											var add_edit = layer.load();
 											$.ajax({

@@ -1,8 +1,10 @@
 package com.amct.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.ibatis.jdbc.RuntimeSqlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +16,6 @@ import com.amct.entity.roles;
 import com.amct.service.rolesService;
 
 @Service
-@Transactional
 public class rolesServiceImpl implements rolesService {
 
 	@Autowired
@@ -89,20 +90,25 @@ public class rolesServiceImpl implements rolesService {
 		return rd.queryMenuId(role_id);
 	}
 
+	// 使用事务控制授权失败后回滚删除的
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public info authService(String role_id, String menu_id) {
 		// 先删除，后授权
-		Integer sum = 0;
+		int total = 0;
 		rd.authDel(role_id);
 		List<String> list = (List<String>) JSON.parse(menu_id);
 		for (int i = 0; i < list.size(); i++) {
-			sum = rd.authDao(UUID.randomUUID().toString(), role_id, list.get(i));
+			Integer sum = rd.authDao(UUID.randomUUID().toString(), role_id,
+					list.get(i));
+			total = sum + total;
 		}
 
 		info info = new info();
-		if (sum == 0) {
+		if (total != list.size()) {
 			info.setMsg("授权失败");
 			info.setSuccess(false);
+			throw new RuntimeSqlException();//抛出异常，事务回滚
 		} else {
 			info.setMsg("授权成功");
 			info.setSuccess(true);

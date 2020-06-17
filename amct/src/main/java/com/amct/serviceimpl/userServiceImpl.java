@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.jdbc.RuntimeSqlException;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,21 +24,20 @@ import com.amct.util.MD5Util;
 import com.amct.util.ipUtils;
 
 @Service
-@Transactional
 public class userServiceImpl implements userService {
 
 	@Autowired
 	private userDao user;
-	
+
 	@Autowired
-	private  deptDao dp;
+	private deptDao dp;
 
 	@Autowired
 	private userLoginLogDao userlog;
 
 	@Override
 	public info findLogin(String login_account, String password,
-			HttpSession session,HttpServletRequest req) {
+			HttpSession session, HttpServletRequest req) {
 		com.amct.entity.user u = user.queryBylogin_account(login_account);
 		info info = new info();
 		if (u == null) {
@@ -45,7 +45,7 @@ public class userServiceImpl implements userService {
 			info.setSuccess(false);
 			return info;
 		}
-		if(u.getUser_status()==0){
+		if (u.getUser_status() == 0) {
 			info.setMsg("用户被禁用");
 			info.setSuccess(false);
 			return info;
@@ -59,7 +59,7 @@ public class userServiceImpl implements userService {
 			return info;
 		}
 		String ip = ipUtils.getIp(req);
-		Integer log = userlog.insertUserLoginLog(login_account, new Date(),ip);
+		Integer log = userlog.insertUserLoginLog(login_account, new Date(), ip);
 		if (log == 1) {
 			info.setMsg("登录成功");
 			info.setSuccess(true);
@@ -79,14 +79,14 @@ public class userServiceImpl implements userService {
 		if (user_name != null) {
 			user_name = "%" + user_name + "%";
 		}
-		 List<user> list = user.queryAll(user_name, begin, limit);
-		 for (int i = 0; i < list.size(); i++) {
-			 dept dept = dp.queryByDeptIdOne(list.get(i).getUser_dept_id());
-			 if(dept!=null){
-				 list.get(i).setDept_name(dept.getDept_name());
-			 }
+		List<user> list = user.queryAll(user_name, begin, limit);
+		for (int i = 0; i < list.size(); i++) {
+			dept dept = dp.queryByDeptIdOne(list.get(i).getUser_dept_id());
+			if (dept != null) {
+				list.get(i).setDept_name(dept.getDept_name());
+			}
 		}
-		 return list;
+		return list;
 	}
 
 	@Override
@@ -97,6 +97,8 @@ public class userServiceImpl implements userService {
 		return user.count(user_name);
 	}
 
+	// 开启事务
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public info add(com.amct.entity.user u) {
 		String userId = UUID.randomUUID().toString();
@@ -118,10 +120,13 @@ public class userServiceImpl implements userService {
 		} else {
 			info.setMsg("新增人员失败");
 			info.setSuccess(false);
+			throw new RuntimeSqlException();//抛出异常，事务回滚
 		}
 		return info;
 	}
 
+	// 开启事务
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public info modify(com.amct.entity.user u) {
 		if ("******".equals(u.getLogin_password())) {
@@ -147,10 +152,13 @@ public class userServiceImpl implements userService {
 		} else {
 			info.setMsg("修改人员失败");
 			info.setSuccess(false);
+			throw new RuntimeSqlException();//抛出异常，事务回滚
 		}
 		return info;
 	}
 
+	// 开启事务
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public info remove(String user_id) {
 		Integer del = user.del(user_id);
@@ -162,6 +170,7 @@ public class userServiceImpl implements userService {
 		} else {
 			info.setMsg("删除失败");
 			info.setSuccess(false);
+			throw new RuntimeSqlException();//抛出异常，事务回滚
 		}
 		return info;
 	}

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.ibatis.jdbc.RuntimeSqlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.amct.dao.menuDao;
 import com.amct.dto.tree;
@@ -71,7 +73,8 @@ public class menuSerivceImpl implements menuService {
 		}
 		return mu.update_menu(m);
 	}
-
+	// 开启事务
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public info remove(String menu_id) {
 		info info = new info();
@@ -81,7 +84,6 @@ public class menuSerivceImpl implements menuService {
 			info.setSuccess(false);
 			return info;
 		} else {
-			// 开启事务
 			Integer del = mu.del(menu_id);
 			Integer d = 0;
 			if (del == 1) {
@@ -89,8 +91,7 @@ public class menuSerivceImpl implements menuService {
 			}
 			if (d == 0) {
 				// 回滚
-			} else {
-				// 提交
+				throw new RuntimeSqlException();
 			}
 			info.setMsg("删除成功");
 			info.setSuccess(true);

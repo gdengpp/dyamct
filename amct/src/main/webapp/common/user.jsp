@@ -264,6 +264,7 @@
 						});
 						//新增
 						$(".user_add").click(function() {
+							$("input[name='user_name']").removeAttr("readonly");
 							addAndEdit();
 						});
 
@@ -278,14 +279,6 @@
 								return false;
 							}
 							var d = "\"${user.login_account}\"";
-							console.log(d)
-							console.log(d!='"'+data[0].login_account+'"')
-							console.log(${user.login_account!=data[0].login_account },"========")
-							
-							console.log("\"${user.login_account}\""!='"'+data[0].login_account+'"')
-							
-							console.log('"'+data[0].login_account+'"' ,"========")
-							
 							if (${user.role.role_code!='sysadmin' }) {
 								if("\"${user.login_account}\""!='"'+data[0].login_account+'"'){
 								layer.msg("不是超级管理员，不可修改其他的信息", {
@@ -295,7 +288,7 @@
 								return false;
 							}
 							}
-						
+							$("input[name='user_name']").attr("readonly","readonly");
 							addAndEdit(data);
 						});
 
@@ -528,6 +521,10 @@
 											var url = "${pageContext.request.contextPath}/user/user_add.do";
 											if (datas.user_id) {
 												url = "${pageContext.request.contextPath}/user/user_edit.do";
+												if(datas.user_name == "sysadmin" && datas.user_status==0){
+													layer.msg("admin用户无法禁用",{icon:5,offset : '25%',});
+													return false;
+												}
 											}
 											var add_edit = layer.load();
 											$.ajax({
